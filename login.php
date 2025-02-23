@@ -15,7 +15,7 @@
 
     <header class="navbar">
         <div class="logo">
-            <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+            <a href="index.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
         </div>
     </header>
 

@@ -47,7 +47,7 @@ if (isset($_POST['login'])) {
         if ($result->num_rows > 0) {
             $_SESSION['username'] = $username;
             $_SESSION['role'] = 'user';
-            header("Location: home.php");
+            header("Location: index.php");
             exit();
         }
     } elseif ($user_type === 'admin') {
