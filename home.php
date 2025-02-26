@@ -3,6 +3,7 @@ session_start();
 // Redirect admin users to the admin dashboard
 if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     header('Location: dashboard.php');
+    
     exit();
 }
 ?>
