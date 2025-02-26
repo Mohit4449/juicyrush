@@ -18,13 +18,13 @@
     <header class="navbar">
         <div class="navbar-container">
             <nav class="nav-links">
-                <a href="index.php" class="animate__animated animate__fadeIn">Home</a>
+                <a href="home.php" class="animate__animated animate__fadeIn">Home</a>
                 <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="animate__animated animate__fadeIn">Product</a>
                 <a href="about.php" class="animate__animated animate__fadeIn">About us</a>
                 <a href="contact.php" class="animate__animated animate__fadeIn">Contact</a>
             </nav>
             <div class="logo animate__animated animate__fadeIn">
-                <a href="index.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
             </div>
         </div>
     </header>
@@ -101,7 +101,7 @@
             <img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo">
             <nav class="footer-nav">
                 <ul>
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="home.php">Home</a></li>
                     <li><a href="product.php">Products</a></li>
                     <li><a href="about.php">About us</a></li>
                     <li><a href="contact.php">Contact</a></li>

@@ -16,7 +16,7 @@
             <a href="dashboard.php" class="nav-link">Home</a>
             <a href="adproduct.php" class="nav-link">Products</a>
             <a href="order.php" class="nav-link">Orders</a>
-            <a href="customer.php" class="nav-link">Customer</a>
+            <a href="customer.php" class="nav-link">Users</a>
             <a href="logout.php" class="nav-link logout">Logout</a>
         </nav>
     </div>

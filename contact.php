@@ -45,14 +45,14 @@ if (isset($_POST['send'])) {
     <header class="navbar">
         <div class="navbar-container">
             <nav class="nav-links">
-                <a href="index.php">Home</a>
+                <a href="home.php">Home</a>
                 <a href="product.php">Product</a>
                 <a href="about.php">About us</a>
                 <a href="contact.php">Contact</a>
             </nav>
 
             <div class="logo">
-                <a href="index.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
             </div>
         </div>
         </div>
@@ -80,7 +80,7 @@ if (isset($_POST['send'])) {
             <img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo">
             <nav class="footer-nav">
                 <ul>
-                    <li><a href="index.php">Home</a></li>
+                    <li><a href="home.php">Home</a></li>
                     <li><a href="product.php">Products</a></li>
                     <li><a href="about.php">About us</a></li>
                     <li><a href="contact.php">Contact</a></li>
