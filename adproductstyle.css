@@ -1,7 +1,8 @@
 @import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
 /* General Styles */
 body {
-  
+
   padding: 0;
   margin: 0;
   background-color: #F3F4F6;
@@ -12,7 +13,8 @@ body {
 
 /* Sidebar Styles */
 .sidebar {
-  width: 16rem; /* Matches Tailwind 'w-64' */
+  width: 16rem;
+  /* Matches Tailwind 'w-64' */
   background: linear-gradient(to top, #f6e05e, #ffffff);
   height: 100vh;
   padding: 1.25rem;
@@ -27,7 +29,8 @@ body {
 
 .sidebar.collapsed {
   width: 0;
-  padding: 1.25rem 0; /* Keep padding minimal when collapsed */
+  padding: 1.25rem 0;
+  /* Keep padding minimal when collapsed */
 }
 
 .logo-container {
@@ -114,7 +117,8 @@ form:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-input, textarea {
+input,
+textarea {
   margin: 10px 0;
   padding: 10px;
   width: calc(100% - 24px);
@@ -123,7 +127,8 @@ input, textarea {
   transition: border-color 0.3s;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   border-color: #FF6F61;
   outline: none;
 }
@@ -136,9 +141,10 @@ button {
   cursor: pointer;
   background-color: #4CAF50;
   color: white;
-  margin: 5px;
+  margin: 10px;
   transition: background 0.3s, transform 0.2s;
 }
+
 
 button:hover {
   background-color: #388E3C;
@@ -149,13 +155,63 @@ button:active {
   transform: scale(0.95);
 }
 
-button[type="submit"].delete {
+button.delete {
   background-color: #E74C3C;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  transition: background 0.3s, transform 0.2s;
 }
+
+button.delete:hover {
+  background-color: #C0392B;
+  transform: scale(1.05);
+}
+
+button.delete:active {
+  transform: scale(0.95);
+}
+
+
 
 button[type="submit"].delete:hover {
   background-color: #C0392B;
 }
+
+/* Custom Alert Styling */
+.custom-alert-popup {
+  background: #222; /* Dark background */
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.custom-alert-title {
+  color: #ffcc00; /* Golden title */
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.custom-alert-confirm {
+  background-color: #ff5733 !important;
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.custom-alert-cancel {
+  background-color: #555 !important;
+  border-radius: 8px;
+  font-size: 16px;
+  padding: 10px 20px;
+}
+
+.swal2-popup {
+  box-shadow: 0px 0px 15px rgba(255, 87, 51, 0.7);
+}
+
+
 
 /* Table Styles */
 table {
@@ -168,7 +224,8 @@ table {
   overflow: hidden;
 }
 
-th, td {
+th,
+td {
   padding: 15px;
   border-bottom: 1px solid #ddd;
   text-align: left;

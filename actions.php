@@ -54,8 +54,9 @@ if (isset($_POST['update_product'])) {
     exit();
 }
 
-if (isset($_POST['delete_product'])) {
-    $id = $_POST['id'];
+if (isset($_GET['delete_product'])) {
+    $id = $_GET['delete_product'];
+
     $sql = "DELETE FROM products WHERE id='$id'";
     $conn->query($sql);
     header('Location: adproduct.php');

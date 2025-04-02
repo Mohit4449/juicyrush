@@ -46,6 +46,7 @@ if (isset($_POST['login'])) {
 
         if ($result->num_rows > 0) {
             $_SESSION['username'] = $username;
+            $_SESSION['user_id'] = $user['id']; 
             $_SESSION['role'] = 'user';
             header("Location: home.php");
             exit();
@@ -56,6 +57,7 @@ if (isset($_POST['login'])) {
 
         if ($result->num_rows > 0) {
             $_SESSION['username'] = $username;
+
             $_SESSION['role'] = 'admin';
             header("Location: dashboard.php");
             exit();
