@@ -5,14 +5,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Registration (Unchanged)
-// Registration with Duplicate Check
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Check if the username or email already exists
     $checkSql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
     $result = $conn->query($checkSql);
 
@@ -21,7 +18,6 @@ if (isset($_POST['register'])) {
         header("Location: login.php");
         exit();
     } else {
-        // Proceed with registration if no duplicates found
         $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
         if ($conn->query($sql)) {
             header("Location: login.php?toggle=login");
@@ -34,11 +30,10 @@ if (isset($_POST['register'])) {
     }
 }
     
-// Login with Dual Table Check
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $user_type = $_POST['user_type']; // Fetch the selected user type
+    $user_type = $_POST['user_type']; 
 
     if ($user_type === 'user') {
         $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
@@ -64,7 +59,6 @@ if (isset($_POST['login'])) {
         }
     }
 
-    // If login fails
     $_SESSION['error'] = "Invalid username or password!";
     header("Location: login.php");
     exit();

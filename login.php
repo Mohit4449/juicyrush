@@ -24,11 +24,10 @@
             <form action="auth.php" method="post">
                 <h1>Login</h1>
 
-                <!-- Display error message if login fails -->
                 <?php
                 if (isset($_SESSION['error'])) {
                     echo "<p style='color: red;'>" . $_SESSION['error'] . "</p>";
-                    unset($_SESSION['error']); // Remove message after displaying
+                    unset($_SESSION['error']); 
                 }
                 ?>
 
