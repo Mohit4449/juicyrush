@@ -42,14 +42,13 @@
             include 'config.php';
             $query = "SELECT u.id, u.username, o.order_details, o.total_items, o.total_amount, o.date_of_order 
                       FROM orders o 
-                      JOIN users u ON u.id = o.user_id ";
+                      JOIN users u ON u.id = o.user_id
+                      ORDER BY o.date_of_order DESC ";
             $result = mysqli_query($conn, $query);
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
 
                     $tmp_arr = json_decode($row['order_details'], true);
-
-
 
             ?>
                     <tr>

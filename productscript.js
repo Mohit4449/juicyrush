@@ -52,6 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
             cart.push(product);
             total += productPrice;
             updateCart();
+
+            // SweetAlert for item added
+            Swal.fire({
+                title: "Success!",
+                text: "Item added successfully!",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
         });
     });
 
@@ -100,49 +108,44 @@ document.addEventListener("DOMContentLoaded", () => {
         updateCart();
     };
 
-    // Checkout functionality
-    // Checkout functionality
+ // Checkout functionality
 checkoutBtn.addEventListener("click", () => {
     if (cart.length > 0) {
-        const username = prompt("Enter your username:"); // Temporary way to get username (replace with actual authentication)
+        const orderDetails = JSON.stringify(cart);
+        const totalItems = cart.length;
+        const totalAmount = total.toFixed(2);
 
-        if (username) {
-            const orderDetails = JSON.stringify(cart);
-            const totalItems = cart.length;
-            const totalAmount = total.toFixed(2);
-
-            // Send order details to the server via AJAX
-            fetch("process_order.php", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: username,
-                    orderDetails: orderDetails,
-                    totalItems: totalItems,
-                    totalAmount: totalAmount,
-                }),
+        // Send order details to the server via AJAX
+        fetch("process_order.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                orderDetails: orderDetails,
+                totalItems: totalItems,
+                totalAmount: totalAmount,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success) {
+                    Swal.fire("Order Placed!", "Your order was placed successfully!", "success");
+                    cart = [];
+                    total = 0;
+                    updateCart();
+                    cartSlider.classList.remove("open");
+                } else {
+                    Swal.fire("Error!", data.error || "Failed to place order. Please try again.", "error");
+                }
             })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Order placed successfully!");
-                        cart = [];
-                        total = 0;
-                        updateCart();
-                        cartSlider.classList.remove("open");
-                    } else {
-                        alert("Failed to place order. Please try again.");
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        }
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     } else {
-        alert("Your cart is empty!");
+        Swal.fire("Oops!", "Your cart is empty!", "warning");
     }
 });
+
 
 });

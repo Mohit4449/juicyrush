@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juicy rush</title>
+
     <link rel="stylesheet" href="style/productstyle.css">
 </head>
 
@@ -14,7 +15,7 @@
         <div class="navbar-container">
             <nav class="nav-links">
                 <a href="home.php">Home</a>
-                <a href="product.php">Product</a>   
+                <a href="product.php">Product</a>
                 <a href="about.php">About us</a>
                 <a href="contact.php">Contact</a>
             </nav>
@@ -38,6 +39,8 @@
             <button class="close-cart" id="closeCart">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
+
+
             <!-- Cart items will be dynamically added here -->
         </div>
         <div class="cart-total">
@@ -60,7 +63,7 @@
                 while ($row = $result->fetch_assoc()) { ?>
                     <div class="product-card">
                         <div class="product-card-content">
-                        <img src="<?php echo $row['image_path']; ?>" alt="<?php echo $row['name']; ?>" class="product-image">
+                            <img src="<?php echo $row['image_path']; ?>" alt="<?php echo $row['name']; ?>" class="product-image">
 
                             <h3><?php echo $row['name']; ?></h3>
                             <p><?php echo $row['description']; ?></p>
@@ -72,15 +75,15 @@
                             <button class="add-to-cart">Add to Cart</button>
                         </div>
                     </div>
-                <?php }
+            <?php }
             } else {
                 echo "<p>No products available at the moment.</p>";
             }
             $conn->close();
             ?>
         </div>
-        
-        
+
+
     </section>
 
     <!-- Footer Section -->
@@ -100,6 +103,7 @@
     </footer>
 
     <!-- Script for Animations and Cart Functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="productscript.js"></script>
 </body>
 

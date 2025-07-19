@@ -322,6 +322,52 @@ body {
     }
 }
 
+/* Custom SweetAlert Styles */
+.swal2-popup {
+    background: linear-gradient(to top left, #d5c988, #ffffff) !important;
+    color: #002857 !important; /* Dark Blue Text */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.swal2-title {
+    font-size: 22px !important;
+    color: #2fc434 !important; /* Green Title */
+    font-weight: bold;
+}
+
+.swal2-content {
+    font-size: 16px !important;
+    color: #666 !important;
+}
+
+.swal2-confirm {
+    background: #4CAF50 !important; /* Green Button */
+    color: white !important;
+    font-size: 16px !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    transition: background 0.3s ease;
+}
+
+.swal2-confirm:hover {
+    background: #45a049 !important; /* Darker Green Hover Effect */
+}
+
+.swal2-cancel {
+    background: #f44336 !important; /* Red Cancel Button */
+    color: white !important;
+    font-size: 16px !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    transition: background 0.3s ease;
+}
+
+.swal2-cancel:hover {
+    background: #d32f2f !important; /* Darker Red Hover Effect */
+}
+
+
 .cart-icon.bounce {
     animation: bounce 0.5s;
 }

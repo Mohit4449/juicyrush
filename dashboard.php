@@ -25,7 +25,7 @@
                 <a href="logout.php" class="nav-link logout">Logout</a>
             </nav>
         </div>
-
+    
         <!-- Main Content -->
         <div class="main-content">
             <button class="menu-button" onclick="toggleSidebar()">☰ Menu</button>

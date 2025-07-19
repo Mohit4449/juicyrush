@@ -1,18 +1,24 @@
 <?php
-include 'config.php'; // Make sure to replace with your actual database connection file
+session_start();
+include 'config.php';
 
 header('Content-Type: application/json');
 
-// Get the POST data
+
+if (!isset($_SESSION['username'])) {
+    echo json_encode(['success' => false, 'error' => 'User not authenticated']);
+    exit();
+}
+
+$username = $_SESSION['username'];
+
 $data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($data['username'], $data['orderDetails'], $data['totalItems'], $data['totalAmount'])) {
-    $username = $data['username'];
+if (isset($data['orderDetails'], $data['totalItems'], $data['totalAmount'])) {
     $orderDetails = $data['orderDetails'];
     $totalItems = intval($data['totalItems']);
     $totalAmount = floatval($data['totalAmount']);
 
-    // Get the user ID from the username
     $query = "SELECT id FROM users WHERE username = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $username);
@@ -23,7 +29,6 @@ if (isset($data['username'], $data['orderDetails'], $data['totalItems'], $data['
         $user = $result->fetch_assoc();
         $userId = $user['id'];
 
-        // Insert the order into the database
         $insertQuery = "INSERT INTO orders (user_id, order_details, total_items, total_amount) VALUES (?, ?, ?, ?)";
         $insertStmt = $conn->prepare($insertQuery);
         $insertStmt->bind_param("isid", $userId, $orderDetails, $totalItems, $totalAmount);
@@ -41,4 +46,3 @@ if (isset($data['username'], $data['orderDetails'], $data['totalItems'], $data['
 }
 
 $conn->close();
-?>

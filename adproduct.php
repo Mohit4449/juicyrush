@@ -5,6 +5,8 @@
     <title>Product Management</title>
     <link rel="stylesheet" href="adproductstyle.css">
     <script src="dashscript.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
@@ -31,7 +33,8 @@
             <input type="number" id="price" name="price" placeholder="Price" required>
             <textarea id="description" name="description" placeholder="Description" required></textarea><br>
             <textarea id="ingredients" name="ingredients" placeholder="Ingredients" required></textarea><br>
-            <input type="file" id="image" name="image" accept="image/*" required><br>
+            <input type="file" id="image" name="image" accept="image/*" required onchange="previewImage(event)">
+            <img id="preview" src="#" alt="Image Preview" style="display: none; width: 100px; height: 100px; margin-top: 10px; border-radius: 8px;">
             <button type="submit" name="add_product">Add Product</button>
             <button type="submit" name="update_product">Update Product</button>
         </form>
@@ -60,25 +63,44 @@
                             <img src="<?php echo $row['image_path']; ?>" alt="Product Image" style="width:50px;height:50px;">
                         <?php } ?>
                     </td>
-                    <td>
+                    <td style="display: flex; gap: 10px; align-items: center;">
                         <button type="button"
-                            onclick="document.getElementById('id').value = '<?php echo $row['id']; ?>';
-                 document.getElementById('name').value = '<?php echo htmlspecialchars($row['name'], ENT_QUOTES); ?>';
-                 document.getElementById('price').value = '<?php echo $row['price']; ?>';
-                 document.getElementById('description').value = '<?php echo htmlspecialchars($row['description'], ENT_QUOTES); ?>';
-                 document.getElementById('ingredients').value = '<?php echo htmlspecialchars($row['ingredients'], ENT_QUOTES); ?>';">
+                            class="edit-btn"
+                            data-id="<?php echo $row['id']; ?>"
+                            data-name="<?php echo htmlspecialchars($row['name'], ENT_QUOTES); ?>"
+                            data-price="<?php echo $row['price']; ?>"
+                            data-description="<?php echo htmlspecialchars($row['description'], ENT_QUOTES); ?>"
+                            data-ingredients="<?php echo htmlspecialchars($row['ingredients'], ENT_QUOTES); ?>">
                             Edit
                         </button>
 
-                    <form method="post" action="actions.php" style="display:inline;">
-                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                        <button type="submit" name="delete_product" class="delete">Delete</button>
-                    </form>
+
+                        <button type="button" class="delete" onclick="deleteProduct('<?php echo $row['id']; ?>')">Delete</button>
+
+                        <script>
+                            function deleteProduct(id) {
+                                if (confirm("Are you sure you want to delete this product?")) {
+                                    window.location.href = "actions.php?delete_product=" + id;
+                                }
+                            }
+                        </script>
                     </td>
+
                 </tr>
             <?php } ?>
         </table>
     </div>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var preview = document.getElementById('preview');
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 </body>
 
 </html>
