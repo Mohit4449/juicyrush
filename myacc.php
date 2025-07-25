@@ -1,81 +1,67 @@
 <?php
-// Database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "dbjuice";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Handle form submission
-if (isset($_POST['send'])) {
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
-    $message = $_POST['message'];
-
-    // Insert data into the database
-    $sql = "INSERT INTO contact (name, phone, email, message) VALUES ('$name', '$phone', '$email', '$message')";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "<script>alert('Message sent successfully!');</script>";
-    } else {
-        echo "<script>alert('Error: " . $conn->error . "');</script>";
-    }
-}
-
+session_start();
+$loggedIn = isset($_SESSION['user_id']); // assume user_id is set on login
+$loggedIn = isset($_SESSION['username']);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Page</title>
-    <link rel="stylesheet" href="style/contactstyle.css">
+  <meta charset="UTF-8">
+  <title>My Account - Juicy Rush</title>
+  <link rel="stylesheet" href="style/myaccstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
-    <!-- navigation bar -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <nav class="nav-links">
-                <a href="home.php">Home</a>
-                <a href="product.php">Product</a>
-                <a href="about.php">About us</a>
-                <a href="contact.php">Contact</a>
-            </nav>
+  <div class="account-page-container">
 
-            <div class="logo">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-            </div>
-        </div>
-        </div>
-    </header>
-    <section class="bgstrap">
-        <div class="strap">
-            <img src="images/strap.png" alt="strap">
-        </div>
-    </section>
-    <section class="contact-info">
-        <div class="info-box">
-            <h2>HEAD OFFICE</h2>
-            <p>Email: Juicy_rush01@Mail.Com</p>
-            <p>Contact us at: 6566676869</p>
-        </div>
-        <div class="info-box">
-            <h2>PRODUCTION FACILITY</h2>
-            <p>Email: Juicy_rush02@Mail.Com</p>
-            <p>Contact us at: 6566676870</p>
-        </div>
-    </section>
+<!-- Navbar -->
+<header class="navbar">
+    <div class="navbar-container">
+      <nav class="nav-links">
+        <?php if (isset($_SESSION['username'])): ?>
+          <a href="logout.php">Logout</a>
+        <?php else: ?>
+          <a href="login.php">Login</a>
+        <?php endif; ?>
+        <a href="home.php">Home</a>
+        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>">Product</a>
+        <a href="about.php">About us</a>
+        <a href="contact.php">Contact</a>
+      </nav>
+      <div class="logo">
+        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+      </div>
+          
+      <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
 
-    <!-- Footer Section -->
+    </div>
+  </header>
+
+<!-- Main Account Section -->
+
+<section class="account-section">
+  <h1>My Account</h1>
+
+  <?php if ($loggedIn): ?>
+    <p class="loggedin">
+      Logged in as <?= htmlspecialchars($_SESSION['username']) ?> / <a href="logout.php">Log out</a>
+    </p>
+    <h2>Order History</h2>
+    <p>You haven't placed any orders yet.</p>
+
+    <div class="account-box">
+      <h3>Account Details</h3>
+      <a href="address.php" class="address-btn">View Addresses (0)</a>
+    </div>
+  <?php else: ?>
+    <p class="notlogged">Please <a href="login.php">login</a> to view your account.</p>
+  <?php endif; ?>
+</section>
+
+ <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-container">
       <!-- Column 1 -->
@@ -88,7 +74,7 @@ if (isset($_POST['send'])) {
       <div class="footer-column">
         <ul>
           <li><a href="home.php">Shop</a></li>
-          <li><a href="orders.php">Orders</a></li>
+          <li><a href="myacc.php">Orders</a></li>
           <li><a href="#">Return Policy</a></li>
           <li><a href="about.php">About Us</a></li>
           <li><a href="#">Shipping Policy</a></li>
@@ -145,6 +131,8 @@ if (isset($_POST['send'])) {
       </div>
     </div>
   </footer>
-</body>
+  </div>
 
+
+</body>
 </html>

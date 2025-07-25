@@ -43,7 +43,7 @@ body {
     right: 20px;
     top: 80px;
     z-index: 99;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   .nav-links.active {
@@ -94,6 +94,25 @@ body {
 .logo img:active {
   transform: translateY(4px);
 }
+
+/* User Icon Styling */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.user-icon i {
+  font-size: 35px;
+  color: #000066;
+  transition: transform 0.2s ease;
+}
+
+.user-icon i:hover {
+  transform: scale(1.2);
+  color: #66b032;
+}
+
 
 .shop-btn {
   background-color: #48d1cc;
@@ -370,58 +389,168 @@ body {
 
 
 
-/* Footer Section */
+/* Footer Styles */
 .footer {
-  position: relative;
-  background: url('bg3.jpg') no-repeat center/cover;
-  padding: 50px 0;
-  text-align: center;
-  color: #002857;
-  height: 500px;
+  background-color: #fff;
+  padding: 40px 60px;
+  color: #000;
+  border-top: 1px solid #e0e0e0;
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .footer-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-column {
+  flex: 1 1 200px;
+}
+
+.logo-col {
+  min-width: 200px;
 }
 
 .footer-logo {
-
-  width: 200px;
-  /* Adjust size as needed */
-  padding-top: 100px;
-}
-
-.footer-nav ul {
-  list-style: none;
-  padding-top: 50px;
-  display: flex;
-  gap: 40px;
-}
-
-.footer-nav ul li {
-  display: inline;
-}
-
-.footer-nav ul li a {
-  text-decoration: none;
-  font-size: 18px;
-  font-weight: bold;
-  color: #002857;
-  transition: color 0.3s ease-in-out;
-}
-
-.footer-nav ul li a:hover {
-  color: #4CAF50;
-  /* Change color on hover */
+  width: 100px;
+  margin-bottom: 15px;
+  margin-left: 100px;
 }
 
 .footer-text {
   font-size: 14px;
-  margin-top: 20px;
-  color: #666;
+  color: #333;
+  margin-left: 50px;
+
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.footer-column ul li a:hover {
+  color: #f43a22;
+}
+
+/* ===== Updated Social Icons Only ===== */
+.footer-social-icons {
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-icon-content {
+  position: relative;
+}
+
+.footer-icon-content a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.footer-icon-content svg {
+  width: 18px;
+  height: 18px;
+  z-index: 2;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.footer-filled {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.footer-icon-content a:hover .footer-filled {
+  height: 100%;
+}
+
+/* Icon Colors */
+.footer-icon-content a[data-social="x"] .footer-filled {
+  background: #000000;
+}
+
+.footer-icon-content a[data-social="instagram"] .footer-filled {
+  /* background: linear-gradient(45deg, #405de6, #833ab4, #c13584, #e1306c, #fd1d1d);  */
+  background: #000000;
+
+}
+
+.footer-icon-content a[data-social="youtube"] .footer-filled {
+  background: #000000;
+}
+
+.footer-icon-content a[data-social="email"] .footer-filled {
+  background: #000000;
+  /* Your brand orange */
+}
+
+.footer-icon-content a:hover svg {
+  color: white !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .footer-social-icons {
+    justify-content: center;
+  }
+}
+
+/* ✅ Responsive Layout */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .footer-column {
+    flex: 1 1 100%;
+  }
+
+  .footer-column ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-column.social {
+    justify-content: center;
+  }
+
+  .footer-text {
+    margin-top: 10px;
+  }
 }
 
 /* Animation Keyframes */
@@ -503,5 +632,3 @@ body {
 .about-section {
   animation: fadeInUp 2s ease-in-out;
 }
-
-
