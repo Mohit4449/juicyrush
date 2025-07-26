@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juicy rush</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="style/productstyle.css">
 </head>
@@ -24,6 +25,11 @@
                 <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
             </div>
 
+            <div class="nav-right">
+      <a href="myacc.php" class="user-icon">
+        <i class="fas fa-user-circle"></i>
+      </a>
+    </div>
             <!-- Cart Icon -->
             <div class="cart-icon" id="cartIcon">
                 <span class="cart-count" id="cartCount">0</span>

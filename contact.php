@@ -38,6 +38,8 @@ if (isset($_POST['send'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Page</title>
     <link rel="stylesheet" href="style/contactstyle.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 </head>
 
 <body>
@@ -54,6 +56,12 @@ if (isset($_POST['send'])) {
             <div class="logo">
                 <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
             </div>
+            <div class="nav-right">
+      <a href="myacc.php" class="user-icon">
+        <i class="fas fa-user-circle"></i>
+      </a>
+      <a href="product.php" class="shop-btn">Shop Now</a>
+    </div>
         </div>
         </div>
     </header>

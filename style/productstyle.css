@@ -46,13 +46,30 @@ body {
 .logo img {
     height: 135px;
     width: 160px;
-    margin-right: 310px;
+    margin-left: 100px;
 }
 
 .logo img:active {
     transform: translateY(4px);
 }
+/* User Icon Styling */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
 
+.user-icon i {
+  font-size: 35px;
+  color: #000066;
+  transition: transform 0.2s ease;
+  margin-left: 300px;
+}
+
+.user-icon i:hover {
+  transform: scale(1.2);
+  color: #66b032;
+}
 /* Cart Icon */
 .cart-icon {
     position: relative;

@@ -7,6 +7,8 @@
     <title>About Us - Fresh Juice</title>
     <link rel="stylesheet" href="style/aboutstyle.css">
     <!-- Add Animate.css for animations -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
 
@@ -19,13 +21,19 @@
         <div class="navbar-container">
             <nav class="nav-links">
                 <a href="home.php" class="animate__animated animate__fadeIn">Home</a>
-                <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="animate__animated animate__fadeIn">Product</a>
+                <a href="product.php" class="animate__animated animate__fadeIn">Product</a>
                 <a href="about.php" class="animate__animated animate__fadeIn">About us</a>
                 <a href="contact.php" class="animate__animated animate__fadeIn">Contact</a>
             </nav>
             <div class="logo animate__animated animate__fadeIn">
                 <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
             </div>
+            <div class="nav-right">
+      <a href="myacc.php" class="user-icon">
+        <i class="fas fa-user-circle"></i>
+      </a>
+      <a href="product.php" class="shop-btn">Shop Now</a>
+    </div>
         </div>
     </header>
 

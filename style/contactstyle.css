@@ -51,15 +51,45 @@ body {
 .logo img {
     height: 135px;
     width: 160px;
-    margin-right: 610px;
+    margin-right: 210px;
     transition: transform 0.3s ease;
 }
 
 .logo img:hover {
     transform: scale(1.1);
 }
+/* User Icon Styling */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
 
+.user-icon i {
+  font-size: 35px;
+  color: #000066;
+  transition: transform 0.2s ease;
+  
+}
 
+.user-icon i:hover {
+  transform: scale(1.2);
+  color: #66b032;
+}
+
+.shop-btn {
+  background-color: #48d1cc;
+  color: white;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.shop-btn:hover {
+  background-color: #3bb3a7;
+}
 .bgstrap img {
     display: block;
     margin-top: 0px;

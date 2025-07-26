@@ -22,33 +22,33 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 
 <body>
   <header class="navbar">
-  <div class="navbar-container">
-    
-    <nav class="nav-links">
-      <?php if (isset($_SESSION['username'])): ?>
-        <a href="logout.php">Logout</a>
-      <?php else: ?>
-        <a href="login.php">Login</a>
-      <?php endif; ?>
-      <a href="home.php">Home</a>
-      <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>">Product</a>
-      <a href="about.php">About us</a>
-      <a href="contact.php">Contact</a>
-    </nav>
+    <div class="navbar-container">
 
-    <div class="logo">
-      <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-    </div>
+      <nav class="nav-links">
+        <?php if (isset($_SESSION['username'])): ?>
+          <a href="logout.php">Logout</a>
+        <?php else: ?>
+          <a href="login.php">Login</a>
+        <?php endif; ?>
+        <a href="home.php">Home</a>
+        <a href="product.php">Product</a>
+        <a href="about.php">About us</a>
+        <a href="contact.php">Contact</a>
+      </nav>
 
-    <div class="nav-right">
-      <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
-        <i class="fas fa-user-circle"></i>
-      </a>
-      <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+      <div class="logo">
+        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+      </div>
+
+      <div class="nav-right">
+        <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+          <i class="fas fa-user-circle"></i>
+        </a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
+      </div>
+
     </div>
-    
-  </div>
-</header>
+  </header>
 
 
   <!--background image-->
@@ -99,42 +99,42 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
       <div class="product-card">
         <img src="images/js7.png" alt="Juice Lemon">
         <h3>Citrus Splash</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
         <img src="images/js6.png  " alt="Juice Kiwi">
         <h3>Green Detox</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
         <img src="images/js3.png" alt="Juice Orange">
         <h3>Orange Bliss</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
         <img src="images/js1.png" alt="Juice Strawberry">
         <h3>Watermelon Chill</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
         <img src="images/js5.png" alt="Juice mango">
         <h3>berry Brust</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
         <img src="images/js8.png" alt="Juice pomegranate">
         <h3>Pomegranate Power</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
         <img src="images/js2.png" alt="Juice Pineapple">
         <h3>Tropical Punch</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
         <img src="images/js4.png" alt="Juice Avocado">
         <h3>Apple Zing</h3>
-        <a href="<?php echo isset($_SESSION['username']) ? 'product.php' : 'login.php'; ?>" class="shop-btn">Shop Now</a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
     </div>
   </section>
