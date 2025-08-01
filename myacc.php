@@ -3,6 +3,9 @@ session_start();
 include('config.php');
 $loggedIn = isset($_SESSION['user_id']); // assume user_id is set on login
 $loggedIn = isset($_SESSION['username']);
+// store the user's ID for query use
+$userId = $_SESSION['user_id'];
+
 ?>
 
 
@@ -21,30 +24,36 @@ $loggedIn = isset($_SESSION['username']);
 
     <!-- Navbar -->
     <header class="navbar">
-      <div class="navbar-container">
-        <nav class="nav-links">
-          <?php if (isset($_SESSION['username'])): ?>
-            <a href="logout.php">Logout</a>
-          <?php else: ?>
-            <a href="login.php">Login</a>
-          <?php endif; ?>
-          <a href="home.php">Home</a>
-          <a href="product.php">Product</a>
-          <a href="about.php">About us</a>
-          <a href="contact.php">Contact</a>
-        </nav>
-        <div class="logo">
-          <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-        </div>
-
-        <div class="nav-right">
-          <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
-            <i class="fas fa-user-circle"></i>
-          </a>
-          <a href="product.php" class="shop-btn">Shop Now</a>
-        </div>
+    <div class="navbar-container">
+      <div class="logo">
+        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
       </div>
-    </header>
+
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="nav-links" id="nav-links">
+        <?php if (isset($_SESSION['username'])): ?>
+          <a href="logout.php">Logout</a>
+        <?php else: ?>
+          <a href="login.php">Login</a>
+        <?php endif; ?>
+        <a href="home.php">Home</a>
+        <a href="product.php">Product</a>
+        <a href="about.php">About us</a>
+        <a href="contact.php">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+          <i class="fas fa-user-circle"></i>
+        </a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
+      </div>
+    </div>
+  </header>
+
 
     <!-- Main Account Section -->
 
@@ -55,15 +64,19 @@ $loggedIn = isset($_SESSION['username']);
         <p class="loggedin">
           Logged in as <?= htmlspecialchars($_SESSION['username']) ?> / <a href="logout.php">Log out</a>
         </p>
-        <h2>Order History</h2>
+        <h2>Your Order</h2>
         <?php
+        
         $sql = "SELECT o.id, u.username, o.order_details, o.total_items, o.total_amount, o.date_of_order
         FROM orders o
         JOIN users u ON o.user_id = u.id
+        WHERE o.user_id = ?
         ORDER BY o.date_of_order DESC";
 
-        $result = $conn->query($sql);
-
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
         if ($result->num_rows > 0): ?>
           <div class="order-table-container">
             <table class="order-table">

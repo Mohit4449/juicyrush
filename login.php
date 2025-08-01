@@ -27,7 +27,7 @@
                 <?php
                 if (isset($_SESSION['error'])) {
                     echo "<p style='color: red;'>" . $_SESSION['error'] . "</p>";
-                    unset($_SESSION['error']); 
+                    unset($_SESSION['error']);
                 }
                 ?>
 
@@ -39,19 +39,11 @@
                     <input type="password" name="password" placeholder="Password" required>
                     <i class='bx bxs-lock-alt'></i>
                 </div>
-                <div class="input-box">
-                    <select name="user_type" required>
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                    <i class='bx bxs-user-check'></i>
-                </div>
-
                 <button type="submit" name="login" class="btn">Login</button>
             </form>
         </div>
 
-        
+
         <div class="form-box register">
             <form action="auth.php" method="post">
                 <h1>Registration</h1>
@@ -86,6 +78,35 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+  document.querySelector('.form-box.register form').addEventListener('submit', function (e) {
+    const username = this.username.value.trim();
+    const email = this.email.value.trim();
+    const password = this.password.value;
+
+    if (username.length < 3) {
+      alert("Username must be at least 3 characters.");
+      e.preventDefault();
+    } else if (!/^[^@]+@[^@]+\.[a-z]{2,}$/i.test(email)) {
+      alert("Invalid email format.");
+      e.preventDefault();
+    } else if (password.length < 6) {
+      alert("Password must be at least 6 characters.");
+      e.preventDefault();
+    }
+  });
+
+  document.querySelector('.form-box.login form').addEventListener('submit', function (e) {
+    const username = this.username.value.trim();
+    const password = this.password.value;
+
+    if (!username || !password) {
+      alert("Both username and password are required.");
+      e.preventDefault();
+    }
+  });
+</script>
+
 </body>
 
 </html>

@@ -13,22 +13,22 @@
 <body>
     <!-- navigation bar -->
     <header class="navbar">
-        <div class="navbar-container">
-            <nav class="nav-links">
-                <a href="home.php">Home</a>
-                <a href="product.php">Product</a>
-                <a href="about.php">About us</a>
-                <a href="contact.php">Contact</a>
-            </nav>
+    <div class="navbar-container">
+      <div class="logo">
+        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+      </div>
 
-            <div class="logo">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-            </div>
+      <nav class="nav-links" id="nav-links">
+        <a href="home.php">Home</a>
+        <a href="product.php">Product</a>
+        <a href="about.php">About us</a>
+        <a href="contact.php">Contact</a>
+      </nav>
 
-            <div class="nav-right">
-      <a href="myacc.php" class="user-icon">
-        <i class="fas fa-user-circle"></i>
-      </a>
+      <div class="nav-right">
+        <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+          <i class="fas fa-user-circle"></i>
+        </a>
     </div>
             <!-- Cart Icon -->
             <div class="cart-icon" id="cartIcon">

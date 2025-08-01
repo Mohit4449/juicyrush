@@ -17,25 +17,31 @@
     <?php
     session_start();
     ?>
-    <header class="navbar">
-        <div class="navbar-container">
-            <nav class="nav-links">
-                <a href="home.php" class="animate__animated animate__fadeIn">Home</a>
-                <a href="product.php" class="animate__animated animate__fadeIn">Product</a>
-                <a href="about.php" class="animate__animated animate__fadeIn">About us</a>
-                <a href="contact.php" class="animate__animated animate__fadeIn">Contact</a>
-            </nav>
-            <div class="logo animate__animated animate__fadeIn">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-            </div>
-            <div class="nav-right">
-      <a href="myacc.php" class="user-icon">
-        <i class="fas fa-user-circle"></i>
-      </a>
-      <a href="product.php" class="shop-btn">Shop Now</a>
+      <header class="navbar">
+    <div class="navbar-container">
+      <div class="logo">
+        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+      </div>
+
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="home.php">Home</a>
+        <a href="product.php">Product</a>
+        <a href="about.php">About us</a>
+        <a href="contact.php">Contact</a>
+      </nav>
+
+      <div class="nav-right">
+        <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+          <i class="fas fa-user-circle"></i>
+        </a>
+        <a href="product.php" class="shop-btn">Shop Now</a>
+      </div>
     </div>
-        </div>
-    </header>
+  </header>
 
     <!-- About Section -->
     <section class="about animate__animated animate__fadeInUp">

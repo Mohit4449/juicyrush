@@ -8,15 +8,27 @@
 }
 
 body {
-    display: grid;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    background: url('bg2.jpg') no-repeat center/cover;
+  position: relative;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  overflow: hidden; /* Prevent scroll caused by blur edges */
 }
 
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('bg2.jpg') no-repeat center center/cover;
+  filter: blur(5px);
+  z-index: -1; /* Keep it behind all content */
+}
 
 
 .navbar {

@@ -5,60 +5,99 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// === REGISTRATION ===
 if (isset($_POST['register'])) {
-    $username = $_POST['username'];
-    $email = $_POST['email'];
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    $checkSql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
-    $result = $conn->query($checkSql);
+    // Server-side validation
+    if (strlen($username) < 3 || strlen($password) < 6) {
+        $_SESSION['error'] = "Username must be at least 3 characters and password at least 6.";
+        header("Location: login.php");
+        exit();
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['error'] = "Invalid email format.";
+        header("Location: login.php");
+        exit();
+    }
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+    $checkSql = "SELECT * FROM users WHERE username=? OR email=?";
+    $stmt = $conn->prepare($checkSql);
+    $stmt->bind_param("ss", $username, $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $_SESSION['error'] = "Username or email already exists!";
         header("Location: login.php");
         exit();
+    }
+
+    $insertSql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($insertSql);
+    $stmt->bind_param("sss", $username, $email, $hashedPassword);
+    if ($stmt->execute()) {
+        header("Location: login.php?toggle=login");
+        exit();
     } else {
-        $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
-        if ($conn->query($sql)) {
-            header("Location: login.php?toggle=login");
-            exit();
-        } else {
-            $_SESSION['error'] = "Registration failed: " . $conn->error;
-            header("Location: login.php");
-            exit();
-        }
+        $_SESSION['error'] = "Registration failed: " . $conn->error;
+        header("Location: login.php");
+        exit();
     }
 }
-    
+
+// === LOGIN ===
 if (isset($_POST['login'])) {
-    $username = $_POST['username'];
+    $username = trim($_POST['username']);
     $password = $_POST['password'];
-    $user_type = $_POST['user_type']; 
 
-    if ($user_type === 'user') {
-        $sql = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $result = $conn->query($sql);
+    if (empty($username) || empty($password)) {
+        $_SESSION['error'] = "Both fields are required.";
+        header("Location: login.php");
+        exit();
+    }
 
-        if ($result->num_rows > 0) {
-            $_SESSION['username'] = $username;
-            $_SESSION['user_id'] = $user['id']; 
-            $_SESSION['role'] = 'user';
-            header("Location: home.php");
-            exit();
-        }
-    } elseif ($user_type === 'admin') {
-        $sql = "SELECT * FROM admin WHERE username='$username' AND password='$password'";
-        $result = $conn->query($sql);
+    // 1. Check admin
+    $adminSql = "SELECT * FROM admin WHERE username=?";
+    $stmt = $conn->prepare($adminSql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $adminResult = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            $_SESSION['username'] = $username;
-
+    if ($adminResult->num_rows > 0) {
+        $admin = $adminResult->fetch_assoc();
+        if ($password === $admin['password']) { // Optional: Use hash here if you hash admin passwords too
+            $_SESSION['username'] = $admin['username'];
             $_SESSION['role'] = 'admin';
             header("Location: dashboard.php");
             exit();
         }
     }
 
+    // 2. Check user
+    $userSql = "SELECT * FROM users WHERE username=?";
+    $stmt = $conn->prepare($userSql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $userResult = $stmt->get_result();
+
+    if ($userResult->num_rows > 0) {
+        $user = $userResult->fetch_assoc();
+        if (password_verify($password, $user['password'])) {
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['role'] = 'user';
+            header("Location: myacc.php");
+            exit();
+        }
+    }
+
+    // 3. No match
     $_SESSION['error'] = "Invalid username or password!";
     header("Location: login.php");
     exit();

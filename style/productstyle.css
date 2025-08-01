@@ -9,49 +9,100 @@ body {
 
 /* Navbar Styling */
 .navbar {
-    background:
-        radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 0, 0.3) 50%, rgba(255, 255, 255, 0.6) 100%),
-        linear-gradient(to right, rgba(255, 255, 255, 0.8) 0%, rgba(255, 235, 150, 0.4) 50%, rgba(255, 255, 255, 0.8) 100%),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 235, 150, 0.4) 50%, rgba(255, 255, 255, 0.8) 100%);
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 0, 0.3) 50%, rgba(255, 255, 255, 0.6) 100%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.8) 0%, rgba(255, 235, 150, 0.4) 50%, rgba(255, 255, 255, 0.8) 100%),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(255, 235, 150, 0.4) 50%, rgba(255, 255, 255, 0.8) 100%);
 
-    padding: 20px 0;
+  padding: 5px 0;
+  position: relative;
+  z-index: 100;
 }
 
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    flex-direction: column;
     align-items: center;
-    max-width: 1400px;
-    margin-left: 35px;
-    padding: 0 20px;
+    padding: 15px 0;
+    gap: 20px;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #ddd;
+    z-index: 999;
+  }
+
+  .nav-links a {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    color: #000066;
+    font-size: 18px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-right {
+    display: none;
+  }
+
+  .logo img {
+    height: 100px;
+  }
+}
+
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  flex-wrap: wrap;
 }
 
 .nav-links {
-    display: flex;
-    gap: 40px;
+  display: flex;
+  gap: 40px;
+  margin-left: 500px;
 }
 
 .nav-links a {
-    text-decoration: none;
-    color: #000066;
-    font-size: 18px;
-    font-weight: 500;
-    position: relative;
+  text-decoration: none;
+  color: #000066;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.nav-links a span {
+  font-size: 14px;
+  color: #000066;
+  margin-left: 10px;
 }
 
 .nav-links a:hover {
-    color: #66b032;
+  color: #66b032;
 }
 
 .logo img {
-    height: 135px;
-    width: 160px;
-    margin-left: 100px;
+  height: 105px;
+  width: 130px;
+  margin: 0 20px;
 }
 
 .logo img:active {
-    transform: translateY(4px);
+  transform: translateY(4px);
 }
+
 /* User Icon Styling */
 .nav-right {
   display: flex;
@@ -63,13 +114,14 @@ body {
   font-size: 35px;
   color: #000066;
   transition: transform 0.2s ease;
-  margin-left: 300px;
 }
 
 .user-icon i:hover {
   transform: scale(1.2);
   color: #66b032;
 }
+
+
 /* Cart Icon */
 .cart-icon {
     position: relative;

@@ -28,10 +28,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
       </div>
 
-      <button class="menu-toggle" id="menu-toggle">
-        <i class="fas fa-bars"></i>
-      </button>
-
       <nav class="nav-links" id="nav-links">
         <?php if (isset($_SESSION['username'])): ?>
           <a href="logout.php">Logout</a>
