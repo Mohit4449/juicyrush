@@ -16,6 +16,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Juicy Rush-Home</title>
   <link rel="stylesheet" href="style/homestyles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 </head>
@@ -23,8 +24,15 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 <body>
   <header class="navbar">
     <div class="navbar-container">
+      <div class="logo">
+        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+      </div>
 
-      <nav class="nav-links">
+      <button class="menu-toggle" id="menu-toggle">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <nav class="nav-links" id="nav-links">
         <?php if (isset($_SESSION['username'])): ?>
           <a href="logout.php">Logout</a>
         <?php else: ?>
@@ -36,25 +44,27 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         <a href="contact.php">Contact</a>
       </nav>
 
-      <div class="logo">
-        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-      </div>
-
       <div class="nav-right">
         <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
           <i class="fas fa-user-circle"></i>
         </a>
         <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
-
     </div>
   </header>
+
 
 
   <!--background image-->
   <section class="bgimg">
     <div class="poster">
-      <img src="images/bg.png" alt="Juice Logo">
+      <div class="image-row">
+        <img src="images/js1.png" class="tilted1" />
+        <img src="images/js2.png" class="tilted2" />
+        <img src="images/js3.png" class="tilted3" />
+        <img src="images/js6.png" class="tilted4" />
+        <img src="images/js5.png" class="tilted5" />
+      </div>
     </div>
   </section>
   <!--hero section-->
@@ -92,7 +102,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
   <section class="product-section">
     <h2>Our Products</h2>
     <div class="product-banner">
-      <img src="images/orangebg.jpg" alt="Orange Slices">
+      <img src="images/fruitsbg(1).jpg" alt="Orange Slices">
     </div>
 
     <div class="product-grid">
@@ -156,7 +166,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         </p>
       </div>
       <div class="about-image">
-        <img src="images/aboutpic.jpg" alt="About Juicy Rush">
+        <img src="images/about2.jpg" alt="About Juicy Rush">
       </div>
     </div>
   </section>
@@ -232,14 +242,19 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     </div>
   </footer>
 
-  <script>
-    const toggleButton = document.getElementById('menu-toggle');
-    const navLinks = document.querySelector('.nav-links');
 
-    toggleButton.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const menuToggle = document.getElementById("menu-toggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      menuToggle.addEventListener("click", function() {
+        navLinks.classList.toggle("active");
+      });
     });
   </script>
+
+
 
 </body>
 
