@@ -50,24 +50,11 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
   </header>
 
 
-
-  <!--background image-->
-  <section class="bgimg">
-    <div class="poster">
-      <div class="image-row">
-        <img src="images/js1.png" class="tilted1" />
-        <img src="images/js2.png" class="tilted2" />
-        <img src="images/js3.png" class="tilted3" />
-        <img src="images/js6.png" class="tilted4" />
-        <img src="images/js5.png" class="tilted5" />
-      </div>
-    </div>
-  </section>
   <!--hero section-->
   <section class="hero">
     <div class="hero-content">
       <h1>From Farm to Bottle, Freshness Delivered.</h1>
-      <img src="images/bottels.png" alt="Juice Bottles" class="hero-image">
+      <img src="images/file_0000000038606230a03aea5d41043c3b-removebg-preview.png" alt="Juice Bottles" class="hero-image">
       <div class="features">
         <div class="feature">
           <img src="images/icon1.png" alt="No Sugar">

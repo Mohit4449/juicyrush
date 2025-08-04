@@ -3,7 +3,6 @@ session_start();
 include('config.php');
 $loggedIn = isset($_SESSION['user_id']); // assume user_id is set on login
 $loggedIn = isset($_SESSION['username']);
-// store the user's ID for query use
 $userId = $_SESSION['user_id'];
 
 ?>

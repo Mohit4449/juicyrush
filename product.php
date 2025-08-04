@@ -26,7 +26,7 @@
       </nav>
 
       <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+        <a href="myacc.php" class="user-icon">
           <i class="fas fa-user-circle"></i>
         </a>
     </div>
@@ -54,6 +54,18 @@
         </div>
         <button class="checkout-btn" id="checkoutBtn">Proceed to Payment</button>
     </div>
+
+
+    <div class="carousel-container">
+  <div class="carousel-slide">
+    <img src="images/fruitbottles.png" alt="Product 1" />
+    <img src="images/file_0000000060bc622f83036cea42369f1d.png" alt="Product 2" />
+    <img src="images/file_00000000479061f69dbd3eb5f7061076 (1).png" alt="Product 3" />
+  </div>
+  <button class="prev">❮</button>
+  <button class="next">❯</button>
+</div>
+
 
     <!-- Product Section -->
     <section class="product-section">
@@ -166,6 +178,25 @@
     <!-- Script for Animations and Cart Functionality -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="productscript.js"></script>
+    <script>
+  const slide = document.querySelector(".carousel-slide");
+  const images = document.querySelectorAll(".carousel-slide img");
+  const prevBtn = document.querySelector(".prev");
+  const nextBtn = document.querySelector(".next");
+
+  let counter = 0;
+
+  nextBtn.addEventListener("click", () => {
+    counter = (counter + 1) % images.length;
+    slide.style.transform = `translateX(-${counter * 100}%)`;
+  });
+
+  prevBtn.addEventListener("click", () => {
+    counter = (counter - 1 + images.length) % images.length;
+    slide.style.transform = `translateX(-${counter * 100}%)`;
+  });
+</script>
+
 </body>
 
 </html>
