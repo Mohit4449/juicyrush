@@ -124,3 +124,81 @@ body{
 .card:nth-child(4) .card-value {
     color: #8b5cf6;
 }
+
+/* Notification Styles */
+.notification-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.bell {
+    position: relative;
+    cursor: pointer;
+    font-size: 35px;
+    margin-top: -60px;
+    margin-right: -250px;
+
+}
+
+.bell .badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.toast {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    opacity: 0.95;
+    margin-top: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    animation: fadeIn 0.5s;
+}
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 0.95; transform: translateY(0);}
+}
+
+.notification-dropdown {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    width: 320px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 100;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.notification-dropdown h3 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #374151;
+}
+
+.order-item {
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}

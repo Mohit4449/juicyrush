@@ -28,6 +28,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
       </div>
 
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input type="text" id="search" placeholder="Search Juices..." autocomplete="off">
+        <div id="search-results"></div>
+      </div>
+
+
       <nav class="nav-links" id="nav-links">
         <?php if (isset($_SESSION['username'])): ?>
           <a href="logout.php">Logout</a>
@@ -160,7 +167,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
       <!-- Column 1 -->
       <div class="footer-column logo-col">
         <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
-        <p class="footer-text">© 2025, Juice Company Pvt. Ltd.</p>
+        <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
       </div>
 
       <!-- Column 2 -->
@@ -237,6 +244,21 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     });
   </script>
 
+  <script>
+    document.getElementById("search").addEventListener("keyup", function() {
+      let query = this.value;
+      if (query.length > 0) {
+        fetch("search.php?q=" + query)
+          .then(res => res.text())
+          .then(data => {
+            document.getElementById("search-results").innerHTML = data;
+            document.getElementById("search-results").style.display = "block";
+          });
+      } else {
+        document.getElementById("search-results").style.display = "none";
+      }
+    });
+  </script>
 
 
 </body>

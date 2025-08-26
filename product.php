@@ -5,31 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juicy rush</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style/productstyle.css">
 </head>
 
 <body>
     <!-- navigation bar -->
     <header class="navbar">
-    <div class="navbar-container">
-      <div class="logo">
-        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-      </div>
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+            </div>
 
-      <nav class="nav-links" id="nav-links">
-        <a href="home.php">Home</a>
-        <a href="product.php">Product</a>
-        <a href="about.php">About us</a>
-        <a href="contact.php">Contact</a>
-      </nav>
+            <!-- Search Bar -->
+            <div class="search-container">
+                <input type="text" id="search" placeholder="Search Juices..." autocomplete="off">
+                <div id="search-results"></div>
+            </div>
+            <nav class="nav-links" id="nav-links">
+                <a href="home.php">Home</a>
+                <a href="product.php">Product</a>
+                <a href="about.php">About us</a>
+                <a href="contact.php">Contact</a>
+            </nav>
 
-      <div class="nav-right">
-        <a href="myacc.php" class="user-icon">
-          <i class="fas fa-user-circle"></i>
-        </a>
-    </div>
+            <div class="nav-right">
+                <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
             <!-- Cart Icon -->
             <div class="cart-icon" id="cartIcon">
                 <span class="cart-count" id="cartCount">0</span>
@@ -55,54 +59,154 @@
         <button class="checkout-btn" id="checkoutBtn">Proceed to Payment</button>
     </div>
 
+    <div class="container">
+        <!-- Left big box -->
+        <div class="box big box1">
+            <h3>NEW ARRIVALS</h3>
+            <h2>Discover Real Flavors</h2>
+            <a href="#" class="btn orange">Shop now</a>
 
-    <div class="carousel-container">
-  <div class="carousel-slide">
-    <img src="images/fruitbottles.png" alt="Product 1" />
-    <img src="images/file_0000000060bc622f83036cea42369f1d.png" alt="Product 2" />
-    <img src="images/file_00000000479061f69dbd3eb5f7061076 (1).png" alt="Product 3" />
-  </div>
-  <button class="prev">❮</button>
-  <button class="next">❯</button>
-</div>
+        </div>
+
+        <!-- Middle two small boxes -->
+        <div class="column">
+            <div class="box small box2">
+
+                <h3>NATURAL FRESH</h3>
+                <h2>Choosing Healthy Juice</h2>
+                <a href="#" class="btn yellow">Shop now</a>
+
+            </div>
+            <div class="box small box3">
+                <h3>Green and Organic</h3>
+                <h2>30% OFF</h2>
+                <a href="#" class="btn red">Shop now</a>
+            </div>
+        </div>
+
+        <!-- Right big box -->
+        <div class="box big box4">
+            <h3>BEST SELLER</h3>
+            <h2>Fresh Healthy Juice</h2>
+            <a href="#" class="btn green">Shop now</a>
+        </div>
+    </div>
+
+    <section class="categories">
+        <h2>Categories</h2>
+        <div class="category-container">
+
+            <div class="category-box" data-category="all">
+                <img src="images/all.png" alt="alljuice">
+                <p>All Juices</p>
+            </div>
+
+            <div class="category-box" data-category="Fruit">
+                <img src="images/kiwi.png" alt="fruitjuice">
+                <p>Fruit Juice</p>
+            </div>
+
+            <div class="category-box" data-category="Herbal">
+                <img src="images/herbal.png" alt="herbaljuice">
+                <p>Herbal Juice</p>
+            </div>
+
+            <div class="category-box" data-category="Vegetable">
+                <img src="images/vegetables.png" alt="vegetablejuice">
+                <p>Vegetable Juice</p>
+            </div>
+
+            <div class="category-box" data-category="Mix">
+                <img src="images/healthy-food.png" alt="mixfruitjuice">
+                <p>Mix Fruit Juice</p>
+            </div>
+
+        </div>
+    </section>
+
 
 
     <!-- Product Section -->
     <section class="product-section">
         <h2>Our Juices</h2>
-        <div class="product-container">
+        <div id="products-container" class="product-container">
             <?php
-            $conn = new mysqli('localhost', 'root', '', 'dbjuice');
+            $conn = new mysqli("localhost", "root", "", "dbjuice");
             if ($conn->connect_error) {
-                die('Connection failed: ' . $conn->connect_error);
+                die("Connection failed: " . $conn->connect_error);
             }
-            $result = $conn->query("SELECT * FROM products");
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) { ?>
-                    <div class="product-card">
-                        <div class="product-card-content">
-                            <img src="<?php echo $row['image_path']; ?>" alt="<?php echo $row['name']; ?>" class="product-image">
 
-                            <h3><?php echo $row['name']; ?></h3>
-                            <p><?php echo $row['description']; ?></p>
-                            <span class="price">₹ <?php echo $row['price']; ?></span>
-                        </div>
-                        <div class="product-card-drawer">
-                            <h3><?php echo $row['name']; ?></h3>
-                            <p>Ingredients: <?php echo $row['ingredients']; ?></p>
-                            <button class="add-to-cart">Add to Cart</button>
-                        </div>
-                    </div>
-            <?php }
-            } else {
-                echo "<p>No products available at the moment.</p>";
+            $category = isset($_GET['category']) ? $_GET['category'] : '';
+            $q = isset($_GET['q']) ? $_GET['q'] : '';
+
+            $sql = "SELECT * FROM products WHERE is_deleted = 0";
+
+            // Category filter
+            if ($category != '' && $category != 'all') {
+                $sql .= " AND category = '" . $conn->real_escape_string($category) . "'";
             }
+
+            // Search filter
+            if ($q != '') {
+                $q = $conn->real_escape_string($q);
+                $sql .= " AND (name LIKE '%$q%' OR ingredients LIKE '%$q%')";
+            }
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "
+        <div class='product-card' id='product{$row['id']}'>
+            <div class='product-card-content'>
+                <a href='product.php?id={$row['id']}#product{$row['id']}'>
+                    <img src='{$row['image_path']}' alt='{$row['name']}' class='product-image'>
+                    <h3>{$row['name']}</h3>
+                </a>
+                <p>{$row['description']}</p>
+                <p class='price'>
+                    <span class='product-price'>₹ {$row['price']}</span>
+                </p>
+                <button class='add-to-cart'>Add to Cart</button>
+            </div>
+        </div>";
+                }
+            } else {
+                echo "<p>No products found.</p>";
+            }
+
             $conn->close();
             ?>
+
+        </div>
+    </section>
+
+
+    <section class="deal-section">
+        <div class="deal-content">
+            <p class="sub-heading">Special Products</p>
+            <h2>Deals of the days.</h2>
+
+            <!-- Countdown -->
+            <div class="countdown">
+                <div><span id="days">00</span><small>DAYS</small></div>
+                <div><span id="hours">00</span><small>HOURS</small></div>
+                <div><span id="minutes">00</span><small>MINS</small></div>
+                <div><span id="seconds">00</span><small>SECS</small></div>
+            </div>
+
+            <button class="shop-btn">Shop now</button>
         </div>
 
-
+        <!-- Product Image -->
+        <div class="deal-image">
+            <img src="images/js5.png" alt="Deal Product">
+            <img src="images/js8.png" alt="Deal Product">
+            <img src="images/js2.png" alt="Deal Product">
+            <div class="sale-badge">30% OFF</div>
+        </div>
     </section>
+
 
     <!-- Footer Section -->
     <footer class="footer">
@@ -110,7 +214,7 @@
             <!-- Column 1 -->
             <div class="footer-column logo-col">
                 <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
-                <p class="footer-text">© 2025, Juice Company Pvt. Ltd.</p>
+                <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
             </div>
 
             <!-- Column 2 -->
@@ -179,23 +283,131 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="productscript.js"></script>
     <script>
-  const slide = document.querySelector(".carousel-slide");
-  const images = document.querySelectorAll(".carousel-slide img");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
+        document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById("search");
+            const resultsBox = document.getElementById("search-results");
+            const container = document.getElementById("products-container");
+            const categoryBoxes = document.querySelectorAll(".category-box");
 
-  let counter = 0;
+            let currentCategory = ""; // track selected category
 
-  nextBtn.addEventListener("click", () => {
-    counter = (counter + 1) % images.length;
-    slide.style.transform = `translateX(-${counter * 100}%)`;
-  });
+            // Typing → show dropdown
+            searchInput.addEventListener("keyup", function() {
+                let query = this.value.trim();
+                if (query.length > 0) {
+                    fetch("search.php?q=" + encodeURIComponent(query) + "&category=" + encodeURIComponent(currentCategory))
+                        .then(res => res.text())
+                        .then(data => {
+                            resultsBox.innerHTML = data;
+                            resultsBox.style.display = "block";
 
-  prevBtn.addEventListener("click", () => {
-    counter = (counter - 1 + images.length) % images.length;
-    slide.style.transform = `translateX(-${counter * 100}%)`;
-  });
+                            // Attach click events to each suggestion
+                            document.querySelectorAll(".search-item").forEach(item => {
+                                item.addEventListener("click", () => {
+                                    const targetId = item.getAttribute("data-id");
+                                    resultsBox.style.display = "none"; // hide dropdown
+
+                                    const target = document.getElementById(targetId);
+                                    if (target) {
+                                        target.scrollIntoView({
+                                            behavior: "smooth",
+                                            block: "center"
+                                        });
+                                        target.classList.add("highlight");
+                                        setTimeout(() => target.classList.remove("highlight"), 2000);
+                                    } else {
+                                        // reload products with category + query
+                                        fetch("fetch_products.php?category=" + encodeURIComponent(currentCategory) + "&q=" + encodeURIComponent(query))
+                                            .then(res => res.text())
+                                            .then(html => {
+                                                container.innerHTML = html;
+                                                const newTarget = document.getElementById(targetId);
+                                                if (newTarget) {
+                                                    newTarget.scrollIntoView({
+                                                        behavior: "smooth",
+                                                        block: "center"
+                                                    });
+                                                    newTarget.classList.add("highlight");
+                                                    setTimeout(() => newTarget.classList.remove("highlight"), 2000);
+                                                }
+                                            });
+                                    }
+                                });
+                            });
+                        });
+                } else {
+                    resultsBox.style.display = "none";
+                }
+            });
+
+            // Category filter
+            categoryBoxes.forEach(box => {
+                box.addEventListener("click", () => {
+                    currentCategory = box.dataset.category === "all" ? "" : box.dataset.category;
+                    fetch("fetch_products.php?category=" + encodeURIComponent(currentCategory))
+                        .then(res => res.text())
+                        .then(html => {
+                            container.innerHTML = html;
+                        });
+                });
+            });
+        });
+    </script>
+
+
+
+
+    <script>
+    // Check if we already stored an end date
+    let countdownDate = localStorage.getItem("countdownDate");
+
+    if (!countdownDate) {
+        // If not stored, set new end date (10 days from now)
+        let newDate = new Date();
+        newDate.setDate(newDate.getDate() + 10);
+        countdownDate = newDate.getTime();
+        localStorage.setItem("countdownDate", countdownDate);
+    } else {
+        countdownDate = parseInt(countdownDate);
+    }
+
+    function updateCountdown() {
+        let now = new Date().getTime();
+        let distance = countdownDate - now;
+
+        if (distance < 0) {
+            document.querySelector(".countdown").innerHTML = "<h3>Offer Expired</h3>";
+            return;
+        }
+
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("days").innerText = days;
+        document.getElementById("hours").innerText = hours;
+        document.getElementById("minutes").innerText = minutes;
+        document.getElementById("seconds").innerText = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.location.hash) {
+                let element = document.querySelector(window.location.hash);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+                }
+            }
+        });
+    </script>
 
 </body>
 

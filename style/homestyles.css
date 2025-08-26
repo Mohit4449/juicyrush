@@ -11,13 +11,20 @@ body {
 
 /* Navbar Styling */
 .navbar {
- 
+
   padding: 5px 0;
   position: relative;
-  background: #8ffb8b56;
-  backdrop-filter: blur(10px);
-  z-index: 100; 
+     background: linear-gradient(
+    to bottom,
+    rgb(193, 249, 193) 0%,     /* top */
+    rgba(193, 249, 193, 0.6) 50%, /* middle soft */
+    #ffffff 100%              /* bottom pure white */
+  );
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  z-index: 100;
 }
+
 
 
 .navbar-container {
@@ -28,7 +35,7 @@ body {
   margin: 0 auto;
   padding: 0 20px;
   flex-wrap: wrap;
-  
+
 }
 
 .nav-links {
@@ -39,14 +46,14 @@ body {
 
 .nav-links a {
   text-decoration: none;
-  color: #1d5a1b;
+    color: #1d5a1b;
   font-size: 18px;
   font-weight: 500;
 }
 
 .nav-links a span {
   font-size: 14px;
-  color: #000066;
+    color: #1d5a1b;
   margin-left: 10px;
 }
 
@@ -64,6 +71,58 @@ body {
   transform: translateY(4px);
 }
 
+.search-container {
+  width: 350px;
+  position: absolute;
+  margin-left: 300px;
+
+
+}
+
+#search {
+  width: 100%;
+  padding: 10px;
+  background: rgba(229, 239, 188, 0.559);
+  border: 1.5px solid #1d5a1b;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 20px;
+}
+
+#search-results {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+  display: none;
+  z-index: 999;
+}
+
+#search-results .item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+#search-results .item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+#search-results .item:hover {
+  background: #f5f5f5;
+}
+
 /* User Icon Styling */
 .nav-right {
   display: flex;
@@ -73,19 +132,20 @@ body {
 
 .user-icon i {
   font-size: 35px;
-  color: #1d5a1b;
+      color: #1d5a1b;
+
   transition: transform 0.2s ease;
 }
 
 .user-icon i:hover {
   transform: scale(1.2);
-  color: #66b032;
+    color: #1d5a1b;
 }
 
 
 .shop-btn {
-  color: #1d5a1b;
-  
+    color: #1d5a1b;
+
   font-size: 16px;
   padding: 10px 20px;
   border-radius: 5px;
@@ -96,6 +156,7 @@ body {
 .shop-btn:hover {
   background-color: #1d5a1b;
   color: white;
+  border-radius: 20px;
 }
 
 /*hero section*/
@@ -127,7 +188,7 @@ body {
   font-size: 50px;
   font-weight: bold;
   color: #002857;
-  margin-top: 350px;
+  margin-top: 400px;
 }
 
 .hero-image {
@@ -154,7 +215,7 @@ body {
 }
 
 .feature img {
-  
+
   width: 70px;
   height: 70px;
 }
@@ -293,7 +354,7 @@ body {
   background: linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 235, 150, 0.3));
   padding: 80px 20px;
   text-align: center;
-  
+
 }
 
 .about-container {

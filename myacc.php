@@ -133,7 +133,7 @@ $userId = $_SESSION['user_id'];
         <!-- Column 1 -->
         <div class="footer-column logo-col">
           <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
-          <p class="footer-text">© 2025, Juice Company Pvt. Ltd.</p>
+          <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
         </div>
 
         <!-- Column 2 -->

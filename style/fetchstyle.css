@@ -1,0 +1,140 @@
+.product-section {
+    padding: 40px;
+    background: #ffffff;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 60px;
+
+}
+
+.product-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #2d3748;
+    /* dark grey */
+    margin: 30px;
+    margin-top: -20px;
+    font-size: 2.5rem;
+    color: #14a078;
+}
+
+.product-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.product-card {
+    height: 550px;
+    width: 310px;
+    position: relative;
+    background: #fff;
+    border: 3px solid #e5e7eb;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+}
+
+
+.hidden-product {
+    opacity: 0;
+    transform: scale(0.95);
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+
+.product-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.product-card-content {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.product-image {
+    width: 300px;
+    height: 300px;
+    filter: drop-shadow(15px 8px 25px rgba(60, 59, 59, 0.929));
+    object-fit: contain;
+    border-radius: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    color: #363636;
+    
+}
+.product-card a{
+        text-decoration: none;
+
+}
+
+.product-card p {
+    font-size: 1rem;
+    color: #000000;
+    margin: 0.5rem 0;
+}
+
+.product-card .price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #424242;
+    display: block;
+
+    margin-bottom: 30px;
+}
+
+.product-card-drawer {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    background: #C6D8D3;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: bottom 0.5s ease;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    z-index: 10;
+    /* makes sure button is clickable */
+}
+
+.product-card-drawer h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    color: #9C0D38;
+}
+
+.product-card-drawer p {
+    font-size: 1rem;
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+.add-to-cart {
+    color: black;
+    background-color: #ffffff;
+    border: 2px solid #058248a4;
+    padding: 0.75rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-to-cart:hover {
+    background-color: #058248a4;
+    color: white;
+
+}

@@ -25,17 +25,34 @@
                 <a href="logout.php" class="nav-link logout">Logout</a>
             </nav>
         </div>
-    
+
         <!-- Main Content -->
         <div class="main-content">
             <button class="menu-button" onclick="toggleSidebar()">☰ Menu</button>
+            <!-- Notification Bell -->
+            <div class="notification-wrapper">
+                <div class="bell" id="notificationBell">
+                    🔔
+                    <span class="badge" id="badgeCount" style="display:none;">0</span>
+                </div>
+            </div>
+            <!-- Notification Dropdown -->
+            <div class="notification-dropdown" id="notificationDropdown" style="display:none;">
+                <h3>Recent Orders</h3>
+                <ul id="orderList"></ul>
+            </div>
+
+            <!-- Toasts -->
+            <div id="toastContainer"></div>
 
             <div class="grid-container">
                 <!-- Cards -->
                 <div class="card">
-                    <a href="adproduct.php"><h2 class="card-title">Products</h2></a>
+                    <a href="adproduct.php">
+                        <h2 class="card-title">Products</h2>
+                    </a>
                     <p class="card-value">
-                    <?php
+                        <?php
                         include 'config.php';
                         $query = "SELECT COUNT(*) AS total_products FROM products";
                         $result = mysqli_query($conn, $query);
@@ -45,7 +62,9 @@
                     </p>
                 </div>
                 <div class="card">
-                    <a href="order.php"><h2 class="card-title">Orders</h2></a>
+                    <a href="order.php">
+                        <h2 class="card-title">Orders</h2>
+                    </a>
                     <p class="card-value">
                         <?php
                         include 'config.php';

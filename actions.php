@@ -1,68 +1,136 @@
 <?php
-$conn = new mysqli('localhost', 'root', '', 'dbjuice');
-if ($conn->connect_error) {
-    die('Connection failed: ' . $conn->connect_error);
+// actions.php
+// Place in same folder as adproduct.php; make sure db.php exists and sets $conn (mysqli).
+include_once 'config.php';
+
+// Ensure products table exists with is_deleted column
+$conn->query("
+CREATE TABLE IF NOT EXISTS products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  description TEXT NOT NULL,
+  ingredients TEXT NOT NULL,
+  category VARCHAR(100) DEFAULT '',
+  image_path VARCHAR(255) DEFAULT NULL,
+  is_deleted TINYINT(1) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+");
+
+// Helper: add column if missing (safe)
+function ensure_column_exists($conn, $column, $ddl) {
+    $col = $conn->real_escape_string($column);
+    $res = $conn->query("SHOW COLUMNS FROM products LIKE '$col'");
+    if ($res && $res->num_rows === 0) {
+        $conn->query("ALTER TABLE products ADD COLUMN $ddl");
+    }
 }
+ensure_column_exists($conn, 'is_deleted', "is_deleted TINYINT(1) DEFAULT 0");
 
-// Create products table with image field
-$tableQuery = "CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    description TEXT NOT NULL,
-    ingredients TEXT NOT NULL,
-    image_path VARCHAR(255) DEFAULT NULL
-)";
-$conn->query($tableQuery);
-
-if (isset($_POST['add_product'])) {
+// ----------------- Handle form submissions (Add / Update) -----------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_product'])) {
+    // Add product via form
     $name = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description'];
     $ingredients = $_POST['ingredients'];
-    $image = $_FILES['image']['name'];
-    $target = 'uploads/' . basename($image);
+    $category = $_POST['category'] ?? '';
+    $image = $_FILES['image']['name'] ?? '';
+    $target = '';
+    if (!empty($image)) $target = 'uploads/' . basename($image);
 
-    $sql = "INSERT INTO products (name, price, description, ingredients, image_path) 
-            VALUES ('$name', '$price', '$description', '$ingredients', '$target')";
-    if (move_uploaded_file($_FILES['image']['tmp_name'], $target) && $conn->query($sql)) {
+    $stmt = $conn->prepare("INSERT INTO products (name, price, description, ingredients, category, image_path) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sdssss", $name, $price, $description, $ingredients, $category, $target);
+    if ((!empty($image) && move_uploaded_file($_FILES['image']['tmp_name'], $target) && $stmt->execute()) || (empty($image) && $stmt->execute())) {
         header('Location: adproduct.php');
-        exit();
+        exit;
     } else {
-        echo 'Failed to upload image.';
+        echo "Failed to add product.";
+        exit;
     }
 }
 
-if (isset($_POST['update_product'])) {
-    $id = $_POST['id'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
+    // Update product via form
+    $id = intval($_POST['id']);
     $name = $_POST['name'];
     $price = $_POST['price'];
     $description = $_POST['description'];
     $ingredients = $_POST['ingredients'];
-    $image = $_FILES['image']['name'];
-    $target = 'uploads/' . basename($image);
+    $category = $_POST['category'] ?? '';
 
-    $sql = "UPDATE products SET name='$name', price='$price', description='$description', ingredients='$ingredients' WHERE id='$id'";
-    $conn->query($sql);
+    $stmt = $conn->prepare("UPDATE products SET name=?, price=?, description=?, ingredients=?, category=? WHERE id=?");
+    $stmt->bind_param("sdsssi", $name, $price, $description, $ingredients, $category, $id);
+    $stmt->execute();
 
-    if (!empty($image)) {
-        $imageSql = "UPDATE products SET image_path='$target' WHERE id='$id'";
-        move_uploaded_file($_FILES['image']['tmp_name'], $target);
-        $conn->query($imageSql);
+    // Optional image update
+    if (!empty($_FILES['image']['name'])) {
+        $target = 'uploads/' . basename($_FILES['image']['name']);
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+            $stmt2 = $conn->prepare("UPDATE products SET image_path=? WHERE id=?");
+            $stmt2->bind_param("si", $target, $id);
+            $stmt2->execute();
+        }
     }
+
     header('Location: adproduct.php');
-    exit();
+    exit;
 }
 
+// ----------------- Handle AJAX actions -----------------
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    header('Content-Type: application/json; charset=utf-8');
+    $action = $_POST['action'];
+    $id = intval($_POST['id'] ?? 0);
+
+    if ($action === 'delete') {
+        // soft delete
+        $stmt = $conn->prepare("UPDATE products SET is_deleted = 1 WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $ok = $stmt->execute();
+        echo json_encode(['status' => $ok ? 'deleted' : 'error']);
+        exit;
+    }
+
+    if ($action === 'undo') {
+        $stmt = $conn->prepare("UPDATE products SET is_deleted = 0 WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $ok = $stmt->execute();
+        echo json_encode(['status' => $ok ? 'restored' : 'error']);
+        exit;
+    }
+
+    if ($action === 'permanent_delete') {
+        // Only delete rows marked deleted
+        $stmt = $conn->prepare("DELETE FROM products WHERE id = ? AND is_deleted = 1");
+        $stmt->bind_param("i", $id);
+        $ok = $stmt->execute();
+        echo json_encode(['status' => $ok ? 'permanently_deleted' : 'error']);
+        exit;
+    }
+
+    echo json_encode(['status' => 'unknown_action']);
+    exit;
+}
+
+// ----------------- GET fallback (old links) -----------------
 if (isset($_GET['delete_product'])) {
-    $id = $_GET['delete_product'];
-
-    $sql = "DELETE FROM products WHERE id='$id'";
-    $conn->query($sql);
-    header('Location: adproduct.php');
-    exit();
+    // Soft delete + redirect back to anchor so page stays in position
+    $id = intval($_GET['delete_product']);
+    $stmt = $conn->prepare("UPDATE products SET is_deleted = 1 WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    // redirect back to admin page with anchor so browser stays near the product area
+    header("Location: adproduct.php?deleted=$id#productRow$id");
+    exit;
 }
 
-$result = $conn->query("SELECT * FROM products");
-$conn->close();
-?>
+if (isset($_GET['undo_delete'])) {
+    $id = intval($_GET['undo_delete']);
+    $stmt = $conn->prepare("UPDATE products SET is_deleted = 0 WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    header("Location: adproduct.php?restored=1#productRow$id");
+    exit;
+}
