@@ -14,7 +14,13 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
   <title>Juicy Rush-Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style/homestyles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,12 +32,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     <div class="navbar-container">
       <div class="logo">
         <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-      </div>
-
-      <!-- Search Bar -->
-      <div class="search-container">
-        <input type="text" id="search" placeholder="Search Juices..." autocomplete="off">
-        <div id="search-results"></div>
       </div>
 
 
@@ -92,7 +92,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
   <section class="product-section">
     <h2>Our Products</h2>
     <div class="product-banner">
-      <img src="images/fruitsbg(1).jpg" alt="Orange Slices">
+      <img src="images/fruitsbg(2).png" alt="Orange Slices">
     </div>
 
     <div class="product-grid">
@@ -102,7 +102,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
       <div class="product-card">
-        <img src="images/js6.png  " alt="Juice Kiwi">
+        <img src="images/js6.png" alt="Juice Kiwi">
         <h3>Green Detox</h3>
         <a href="product.php" class="shop-btn">Shop Now</a>
       </div>
@@ -156,7 +156,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         </p>
       </div>
       <div class="about-image">
-        <img src="images/about2.jpg" alt="About Juicy Rush">
+        <img src="images/about2(1).jpg" alt="About Juicy Rush">
       </div>
     </div>
   </section>
@@ -173,25 +173,29 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
       <!-- Column 2 -->
       <div class="footer-column">
         <ul>
-          <li><a href="home.php">Shop</a></li>
+          <li><a href="product.php">Shop now</a></li>
           <li><a href="myacc.php">Orders</a></li>
-          <li><a href="#">Return Policy</a></li>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="about.php">Know Us</a></li>
         </ul>
       </div>
 
       <!-- Column 3 -->
       <div class="footer-column">
         <ul>
-          <li><a href="#">Know Us</a></li>
+          <li><a href="about.php">About Us</a></li>
           <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Customer Service</a></li>
           <li><a href="#">Terms & Conditions</a></li>
-          <li><a href="#">Privacy Policy</a></li>
         </ul>
       </div>
 
+      <!-- Column 4 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+        </ul>
+      </div>
       <!-- Column 4: Social Icons (Updated) -->
       <div class="footer-column social">
         <ul class="footer-social-icons">
@@ -241,22 +245,6 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
       menuToggle.addEventListener("click", function() {
         navLinks.classList.toggle("active");
       });
-    });
-  </script>
-
-  <script>
-    document.getElementById("search").addEventListener("keyup", function() {
-      let query = this.value;
-      if (query.length > 0) {
-        fetch("search.php?q=" + query)
-          .then(res => res.text())
-          .then(data => {
-            document.getElementById("search-results").innerHTML = data;
-            document.getElementById("search-results").style.display = "block";
-          });
-      } else {
-        document.getElementById("search-results").style.display = "none";
-      }
     });
   </script>
 

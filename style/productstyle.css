@@ -1,6 +1,10 @@
 /* General Styles */
+* {
+    font-family: 'Urbanist', sans-serif;
+
+}
+
 body {
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -339,7 +343,8 @@ body {
 }
 
 .box2 {
-    background: url('bg14.jpeg') no-repeat center center/cover;
+    background: url('Dried herb.jpeg') no-repeat center center/cover;
+
 }
 
 .box3 {
@@ -356,7 +361,7 @@ body {
 
 /* Typography inside boxes */
 .box h3 {
-    font-size: 16px;
+    font-size: 22px;
     letter-spacing: 2px;
     text-transform: uppercase;
     margin-bottom: 8px;
@@ -365,7 +370,7 @@ body {
 }
 
 .box h2 {
-    font-size: 26px;
+    font-size: 32px;
     line-height: 1.3;
     margin-bottom: 20px;
     font-weight: 700;
@@ -426,6 +431,65 @@ body {
     transform: scale(1.05);
 }
 
+.customized-products {
+    padding: 40px;
+    text-align: center;
+    margin-bottom: -60px;
+}
+
+.customized-products h2 {
+    font-size: 42px;
+    font-weight: 700;
+    font-family: 'Urbanist', sans-serif;
+    /* dark grey */
+    color: #14a078;
+}
+
+
+
+.custombox {
+    padding: 20px;
+    background: url('ChatGPT Image Sep 3, 2025, 03_37_59 PM.png') no-repeat center center/cover;
+    image-rendering: contain;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 70px;
+    border-top-right-radius: 10px;
+    height: 300px;
+    border: 3px solid #e5e7eb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+}
+
+.custombox h3 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #3837379d;
+    margin-top: 200px;
+    margin-bottom: 18px;
+
+}
+
+.makebtn {
+    align-self: flex-start;
+    padding: 12px 26px;
+    border: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #f1c40f, #edbb6a);
+    color: #fff;
+}
+
+.makebtn:hover {
+    background: linear-gradient(135deg, #f39c12, #f1c40f);
+    transform: scale(1.05);
+}
+
 .categories {
     padding: 40px;
     text-align: center;
@@ -435,7 +499,7 @@ body {
 .categories h2 {
     font-size: 24px;
     font-weight: 700;
-    color: #2d3748;
+    font-family: 'Urbanist', sans-serif;
     /* dark grey */
     margin: 30px;
     font-size: 2.5rem;
@@ -477,7 +541,8 @@ body {
 }
 
 .category-box p {
-    font-size: 16px;
+
+    font-size: 20px;
     font-weight: 600;
     color: #2d3748;
 }
@@ -524,9 +589,6 @@ body {
     padding: 40px;
     background: #ffffff;
     text-align: center;
-    font-family: 'Poppins', sans-serif;
-    margin-bottom: 60px;
-
 }
 
 .product-section h2 {
@@ -550,7 +612,7 @@ body {
 }
 
 .product-card {
-    height: 550px;
+    height: 630px;
     position: relative;
     background: #fff;
     border: 3px solid #e5e7eb;
@@ -558,8 +620,24 @@ body {
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.4s ease;
+    text-align: center;
+    max-width: 340px;
 }
 
+.product-image.Herbal {
+    transform: scale(2.8);
+    /* Make shots bigger */
+    margin: 10px 0;
+    /* Adjust spacing */
+}
+
+
+.product-card select {
+    margin: 10px 0;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
 
 .hidden-product {
     opacity: 0;
@@ -584,7 +662,7 @@ body {
 .product-image {
     width: 300px;
     height: 300px;
-    filter: drop-shadow(15px 8px 25px rgba(60, 59, 59, 0.929));
+    filter: drop-shadow(15px 8px 25px rgba(60, 59, 59, 0.372));
     object-fit: contain;
     border-radius: 10px;
     border-radius: 8px;
@@ -592,18 +670,20 @@ body {
 }
 
 .product-card h3 {
-    font-size: 1.5rem;
-    margin: 1rem 0;
+    font-size: 35px;
+    margin: 20px;
+    font-family: 'Urbanist', sans-serif;
     color: #363636;
-    
+
 }
-.product-card a{
-        text-decoration: none;
+
+.product-card a {
+    text-decoration: none;
 
 }
 
 .product-card p {
-    font-size: 1rem;
+    font-size: 18px;
     color: #000000;
     margin: 0.5rem 0;
 }
@@ -613,43 +693,16 @@ body {
     font-weight: bold;
     color: #424242;
     display: block;
-
-    margin-bottom: 30px;
-}
-
-.product-card-drawer {
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    width: 100%;
-    background: #C6D8D3;
-    padding: 20px;
-    box-sizing: border-box;
-    transition: bottom 0.5s ease;
-    border-top: 1px solid #ddd;
-    text-align: center;
-    z-index: 10;
-    /* makes sure button is clickable */
-}
-
-.product-card-drawer h3 {
-    font-size: 1.5rem;
-    margin: 1rem 0;
-    color: #9C0D38;
-}
-
-.product-card-drawer p {
-    font-size: 1rem;
-    color: #666;
-    margin: 0.5rem 0;
+    margin-bottom: 15px;
 }
 
 .add-to-cart {
     color: black;
     background-color: #ffffff;
     border: 2px solid #058248a4;
-    padding: 0.75rem 1.5rem;
+    padding: 8px 15px;
     border-radius: 20px;
+    margin-top: -30px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -658,6 +711,67 @@ body {
     background-color: #058248a4;
     color: white;
 
+}
+
+/* Flip only the image area */
+.flip-container {
+    perspective: 1000px;
+    width: 100%;
+    height: 300px;
+    /* match .product-image height */
+    position: relative;
+    margin-bottom: 10px;
+
+}
+
+.flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    border-radius: 10px;
+    background: #f8f8f8;
+}
+
+.flip-container:hover .flip-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-front,
+.flip-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Keep your existing image styling */
+.flip-front .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* your original drop shadow etc. from .product-image will still apply */
+}
+
+/* Back side content */
+.flip-back {
+    transform: rotateY(180deg);
+    background: #f8f8f8;
+    color: #333;
+    padding: 15px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.flip-back h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 .floating-cart {
@@ -803,9 +917,9 @@ body {
     justify-content: space-between;
     padding: 60px;
     margin: 50px 50px;
-    border-top-left-radius: 110px;
+    border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-right-radius: 110px;
     border-bottom-left-radius: 20px;
     background: url('bg17.png') no-repeat center center/cover;
     background-attachment: fixed;
@@ -877,7 +991,7 @@ body {
     font-weight: bold;
 }
 
-.shop-btn a{
+.shop-btn a {
     text-decoration: none;
     color: black;
 }
@@ -911,6 +1025,18 @@ body {
     transform: rotate(-15deg);
 }
 
+/* Special styling for Shots */
+.product-image.shots {
+    transform: scale(0.9);
+    /* Slightly bigger */
+    margin: 20px 0;
+}
+
+
+
+
+
+
 /* Footer Styles */
 .footer {
     background-color: #fff;
@@ -938,7 +1064,7 @@ body {
 .footer-logo {
     width: 100px;
     margin-bottom: 15px;
-    margin-left: 100px;
+    margin-left: 80px;
 }
 
 .footer-text {

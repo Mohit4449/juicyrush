@@ -3,6 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="order-custstyle.css">
     <script src="dashscript.js" defer></script>
@@ -58,9 +60,13 @@
                             $tmp_arr = json_decode($row['order_details'], true); // Decode as an associative array
 
                             if (!empty($tmp_arr) && is_array($tmp_arr)) {
-                                foreach ($tmp_arr as $item) {
-                                    echo isset($item['name']) ? $item['name'] . '<br>' : 'Unnamed Item<br>';
-                                }
+                               foreach ($tmp_arr as $item) {
+    $name = isset($item['name']) ? $item['name'] : 'Unnamed Item';
+    $package = isset($item['package']) ? $item['package'] : 'N/A';
+    $price = isset($item['price']) ? "₹" . $item['price'] : 'Price N/A';
+
+    echo "$name ($package) - $price<br>";
+}
                             } else {
                                 echo "No items available";
                             }

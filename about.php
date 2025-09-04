@@ -4,8 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <title>About Us - Fresh Juice</title>
     <link rel="stylesheet" href="style/aboutstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <!-- Add Animate.css for animations -->
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -119,27 +125,32 @@
                 <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
             </div>
 
-            <!-- Column 2 -->
-            <div class="footer-column">
-                <ul>
-                    <li><a href="home.php">Shop</a></li>
-                    <li><a href="orders.php">Orders</a></li>
-                    <li><a href="#">Return Policy</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                </ul>
-            </div>
+                <!-- Column 2 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="product.php">Shop now</a></li>
+          <li><a href="myacc.php">Orders</a></li>
+          <li><a href="about.php">Know Us</a></li>
+        </ul>
+      </div>
 
-            <!-- Column 3 -->
-            <div class="footer-column">
-                <ul>
-                    <li><a href="#">Know Us</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="#">Customer Service</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
+      <!-- Column 3 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="about.php">About Us</a></li>
+          <li><a href="contact.php">Contact</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+        </ul>
+      </div>
 
             <!-- Column 4: Social Icons (Updated) -->
             <div class="footer-column social">

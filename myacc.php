@@ -1,18 +1,21 @@
 <?php
 session_start();
 include('config.php');
-$loggedIn = isset($_SESSION['user_id']); // assume user_id is set on login
-$loggedIn = isset($_SESSION['username']);
-$userId = $_SESSION['user_id'];
 
+// Check if user is logged in
+$loggedIn = isset($_SESSION['user_id']) && isset($_SESSION['username']);
+
+// Only set $userId if logged in
+$userId = $loggedIn ? $_SESSION['user_id'] : null;
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
   <title>My Account - Juicy Rush</title>
   <link rel="stylesheet" href="style/myaccstyle.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -136,27 +139,32 @@ $userId = $_SESSION['user_id'];
           <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
         </div>
 
-        <!-- Column 2 -->
-        <div class="footer-column">
-          <ul>
-            <li><a href="home.php">Shop</a></li>
-            <li><a href="myacc.php">Orders</a></li>
-            <li><a href="#">Return Policy</a></li>
-            <li><a href="about.php">About Us</a></li>
-            <li><a href="#">Shipping Policy</a></li>
-          </ul>
-        </div>
+             <!-- Column 2 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="product.php">Shop now</a></li>
+          <li><a href="myacc.php">Orders</a></li>
+          <li><a href="about.php">Know Us</a></li>
+        </ul>
+      </div>
 
-        <!-- Column 3 -->
-        <div class="footer-column">
-          <ul>
-            <li><a href="#">Know Us</a></li>
-            <li><a href="contact.php">Contact</a></li>
-            <li><a href="#">Customer Service</a></li>
-            <li><a href="#">Terms & Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
-        </div>
+      <!-- Column 3 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="about.php">About Us</a></li>
+          <li><a href="contact.php">Contact</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 4 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+        </ul>
+      </div>
 
         <!-- Column 4: Social Icons (Updated) -->
         <div class="footer-column social">

@@ -1,6 +1,9 @@
 /* General Styles */
+* {
+    font-family: 'Urbanist', sans-serif;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     color: #333;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 $conn = new mysqli('localhost', 'root', '', 'dbjuice');
 if ($conn->connect_error) {
@@ -104,4 +104,3 @@ if (isset($_POST['login'])) {
 }
 
 $conn->close();
-?>

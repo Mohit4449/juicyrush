@@ -1,4 +1,8 @@
 <?php
+session_start();
+?>
+
+<?php
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -48,8 +52,14 @@ if (isset($_POST['feedback_submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <title>Contact Page</title>
     <link rel="stylesheet" href="style/contactstyle.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
@@ -82,8 +92,10 @@ if (isset($_POST['feedback_submit'])) {
     </header>
 
     <section class="bgstrap">
+        <img src="images/strap.png" alt="strap">
         <div class="strap">
-            <img src="images/strap.png" alt="strap">
+            <img src="images/homej023.png" alt="leaves">
+            <h2>Get in touch</h2>
         </div>
     </section>
 
@@ -120,28 +132,32 @@ if (isset($_POST['feedback_submit'])) {
                 <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
             </div>
 
-            <!-- Column 2 -->
-            <div class="footer-column">
-                <ul>
-                    <li><a href="home.php">Shop</a></li>
-                    <li><a href="orders.php">Orders</a></li>
-                    <li><a href="#">Return Policy</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                </ul>
-            </div>
+                <!-- Column 2 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="product.php">Shop now</a></li>
+          <li><a href="myacc.php">Orders</a></li>
+          <li><a href="about.php">Know Us</a></li>
+        </ul>
+      </div>
 
-            <!-- Column 3 -->
-            <div class="footer-column">
-                <ul>
-                    <li><a href="#">Know Us</a></li>
-                    <li><a href="contact.php">Contact</a></li>
-                    <li><a href="#">Customer Service</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
+      <!-- Column 3 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="about.php">About Us</a></li>
+          <li><a href="contact.php">Contact</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+        </ul>
+      </div>
 
+      <!-- Column 4 -->
+      <div class="footer-column">
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+        </ul>
+      </div>
             <!-- Column 4: Social Icons -->
             <div class="footer-column social">
                 <ul class="footer-social-icons">
@@ -190,4 +206,5 @@ if (isset($_POST['feedback_submit'])) {
         </div>
     </footer>
 </body>
+
 </html>

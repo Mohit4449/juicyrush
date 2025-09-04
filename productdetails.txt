@@ -1,3 +1,5 @@
+Juices:
+
 Orange Bliss
 A sweet and sunny citrus delight.
 Oranges, pineapple, mango, and a hint of turmeric.
@@ -10,9 +12,9 @@ Tropical Punch
 Pineapple, mango, and passion fruit blend.
 Pineapple, mango, oranges and lime.
 
-Green Detox
-Kale, spinach, celery and mint for a healthy boost.
-celery, kale, spinach, mint, ginger, water.
+Emerald Splash
+A bright, vitamin-packed refresher.
+Kiwi, Green apple, and mint for a tropical twist.
 
 Apple Zing
 A crisp and zesty apple delight.
@@ -33,3 +35,26 @@ Oranges, lemons, limes, grapefruit, and a hint of honey.
 Pomegranate Power
 A bold and antioxidantrich energy booster.
 Pomegranate seeds, apples, beetroot, and a squeeze of lemon.
+
+
+Shots:
+
+Mint Mist
+A refreshing shot for instant cooling and digestion support.
+Fresh mint leaves, tulsi (holy basil), ginger, and a hint of honey.
+
+Sunbeam
+A zesty immunity booster that energizes your body.
+Turmeric, orange, lemon, and a dash of black pepper.
+
+Golden Fire
+A warming detox shot that shields against infections.
+Turmeric, ginger, black pepper, and raw honey.
+
+Amber Boost
+A soothing yet powerful blend to recharge immunity.
+Amla (Indian gooseberry), cinnamon, ginger, and jaggery.
+
+Green Detox
+A cleansing shot that flushes out toxins naturally.
+Spinach, kale, cucumber, green apple, and lemon.

@@ -1,5 +1,8 @@
+* {
+    font-family: 'Urbanist', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #fff;
@@ -11,12 +14,14 @@ body {
 
 /* Navbar Styling */
 .navbar {
-        background: linear-gradient(
-    to bottom,
-    rgb(193, 249, 193) 0%,     /* top */
-    rgba(193, 249, 193, 0.6) 50%, /* middle soft */
-    #ffffff 100%              /* bottom pure white */
-  );
+    background: linear-gradient(to bottom,
+            rgb(193, 249, 193) 0%,
+            /* top */
+            rgba(193, 249, 193, 0.6) 50%,
+            /* middle soft */
+            #ffffff 100%
+            /* bottom pure white */
+        );
     border-bottom-left-radius: 50px;
     border-bottom-right-radius: 50px;
     padding: 5px 0;
@@ -161,11 +166,34 @@ body {
     margin-right: auto;
     width: 100%;
     height: 70%;
-    border-radius: 50px;
+    border-radius: 10px;
     animation: slideInLeft 1s ease-in-out;
 }
 
+.strap img {
+    width: 100px;
+    height: 60px;
+    margin-top: -255px;
+    margin-bottom: 200px;
+    margin-left: 310px;
+    transform: rotate(0deg);
+}
+
 /*-----------------contact-------------------*/
+.strap h2 {
+    position: absolute;
+    top: 50px;
+    left: 20%;
+    transform: translateX(-50%);
+    color: #012957;
+    font-size: 63px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 290px;
+    padding: 10px 20px;
+    animation: fadeIn 1s ease-in-out;
+}
 
 .contact-info {
     display: flex;
@@ -221,7 +249,7 @@ body {
     background: linear-gradient(to bottom left, #fde77b, #fafbfa);
     padding: 40px;
     margin: 50px auto;
-     border-left: 8px solid #FEA501;
+    border-left: 8px solid #FEA501;
     border-right: 8px solid #FEA501;
 
     border-radius: 15px;
@@ -471,17 +499,6 @@ body {
     }
 }
 
-@keyframes slideInLeft {
-    from {
-        transform: translateX(-100px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
 
 @keyframes fadeInUp {
     from {

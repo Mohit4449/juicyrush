@@ -1,4 +1,9 @@
 /* Reset and Fonts */
+* {
+  font-family: 'Urbanist', sans-serif;
+
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
@@ -120,14 +125,14 @@ body {
 
 .nav-links a {
   text-decoration: none;
-    color: #1d5a1b;
+  color: #1d5a1b;
   font-size: 18px;
   font-weight: 500;
 }
 
 .nav-links a span {
   font-size: 14px;
-    color: #1d5a1b;
+  color: #1d5a1b;
   margin-left: 10px;
 }
 
@@ -154,13 +159,13 @@ body {
 
 .user-icon i {
   font-size: 35px;
-    color: #1d5a1b;
+  color: #1d5a1b;
   transition: transform 0.2s ease;
 }
 
 .user-icon i:hover {
   transform: scale(1.2);
-    color: #1d5a1b;
+  color: #1d5a1b;
 }
 
 
@@ -296,7 +301,7 @@ body {
 .footer-logo {
   width: 100px;
   margin-bottom: 15px;
-  margin-left: 100px;
+  margin-left: 80px;
 }
 
 .footer-text {

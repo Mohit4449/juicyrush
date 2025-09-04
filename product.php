@@ -1,10 +1,23 @@
+<?php
+session_start();
+include 'config.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <title>Juicy rush</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style/productstyle.css">
 </head>
@@ -46,7 +59,7 @@
     <div class="cart-slider" id="cartSlider">
         <div class="cart-header">
             <h3>Your Cart</h3>
-            <button class="close-cart" id="closeCart">&times;</button>
+            <button class="close-cart" id="closeCart">x</button>
         </div>
         <div class="cart-items" id="cartItems">
 
@@ -64,33 +77,38 @@
         <div class="box big box1">
             <h3>NEW ARRIVALS</h3>
             <h2>Discover Real Flavors</h2>
-            <a href="#" class="btn orange">Shop now</a>
-
+            <a href="#" class="btn orange shop-btn" data-category="Fruit">Shop now</a>
         </div>
 
         <!-- Middle two small boxes -->
         <div class="column">
             <div class="box small box2">
-
                 <h3>NATURAL FRESH</h3>
-                <h2>Choosing Healthy Juice</h2>
-                <a href="#" class="btn yellow">Shop now</a>
-
+                <h2>Herbal Shots</h2>
+                <a href="#" class="btn yellow shop-btn" data-category="Herbal">Shop now</a>
             </div>
             <div class="box small box3">
                 <h3>Green and Organic</h3>
-                <h2>30% OFF</h2>
-                <a href="#" class="btn red">Shop now</a>
+                <h2>Vegetable Soups</h2>
+                <a href="#" class="btn red shop-btn" data-category="Vegetable">Shop now</a>
             </div>
         </div>
 
         <!-- Right big box -->
         <div class="box big box4">
-            <h3>BEST SELLER</h3>
-            <h2>Fresh Healthy Juice</h2>
-            <a href="#" class="btn green">Shop now</a>
+            <h3>Blended</h3>
+            <h2>Fresh Mix Juices</h2>
+            <a href="#" class="btn green shop-btn" data-category="Mix">Shop now</a>
         </div>
     </div>
+
+    <section class="customized-products">
+        <h2>Customise Juice</h2>
+        <div class="custombox">
+            <h3>Make Your Own Juice</h3>
+            <a href="custom.php" class="makebtn">Make now</a>
+        </div>
+    </section>
 
     <section class="categories">
         <h2>Categories</h2>
@@ -106,14 +124,9 @@
                 <p>Fruit Juice</p>
             </div>
 
-            <div class="category-box" data-category="Herbal">
-                <img src="images/herbal.png" alt="herbaljuice">
-                <p>Herbal Juice</p>
-            </div>
-
             <div class="category-box" data-category="Vegetable">
                 <img src="images/vegetables.png" alt="vegetablejuice">
-                <p>Vegetable Juice</p>
+                <p>Vegetable Soups</p>
             </div>
 
             <div class="category-box" data-category="Mix">
@@ -130,6 +143,7 @@
     <section class="product-section">
         <h2>Our Juices</h2>
         <div id="products-container" class="product-container">
+
             <?php
             $conn = new mysqli("localhost", "root", "", "dbjuice");
             if ($conn->connect_error) {
@@ -139,7 +153,7 @@
             $category = isset($_GET['category']) ? $_GET['category'] : '';
             $q = isset($_GET['q']) ? $_GET['q'] : '';
 
-            $sql = "SELECT * FROM products WHERE is_deleted = 0";
+            $sql = "SELECT * FROM products WHERE is_deleted = 0 AND category != 'Herbal'";
 
             // Category filter
             if ($category != '' && $category != 'all') {
@@ -156,31 +170,57 @@
 
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
+                    $originalPrice = (int)$row['price'];
+                    $price750 = max(0, $originalPrice - 70);
+                    $price500 = max(0, $originalPrice - 110);
+
                     echo "
-        <div class='product-card' id='product{$row['id']}'>
-            <div class='product-card-content'>
-                <a href='product.php?id={$row['id']}#product{$row['id']}'>
-                    <img src='{$row['image_path']}' alt='{$row['name']}' class='product-image'>
-                    <h3>{$row['name']}</h3>
-                </a>
-                <p>{$row['description']}</p>
-                <p class='price'>
-                    <span class='product-price'>₹ {$row['price']}</span>
-                </p>
-                <button class='add-to-cart'>Add to Cart</button>
-            </div>
-        </div>";
+<div class='product-card' id='product{$row['id']}'>
+  <div class='product-card-content'>
+    <a href='product.php?id={$row['id']}#product{$row['id']}'>
+      <div class='flip-container'>
+        <div class='flip-inner'>
+          <!-- Front Side (Image) -->
+          <div class='flip-front'>
+            <img src='{$row['image_path']}' alt='{$row['name']}' class='product-image'>
+          </div>
+          <!-- Back Side (Static Info) -->
+          <div class='flip-back'>
+          <h4>Ingredients:</h4>
+                <p>{$row['ingredients']}</p>
+            <p><strong>Benefits:</strong> Boosts immunity, refreshes body</p>
+            <p><strong>Storage:</strong> Keep refrigerated</p>
+          </div>
+        </div>
+      </div>
+      <h3>{$row['name']}</h3>
+    </a>
+
+    <p>{$row['description']}</p>
+
+    <!-- Package Option Dropdown -->
+    <label for='size{$row['id']}'>Choose Package:</label>
+    <select class='package-select' id='size{$row['id']}'>
+      <option value='500ml' data-price='{$price500}'>500ml - ₹{$price500}</option>
+      <option value='750ml' data-price='{$price750}'>750ml - ₹{$price750}</option>
+      <option value='1L' data-price='{$originalPrice}' selected>1L - ₹{$originalPrice}</option>
+    </select>
+
+    <p class='price'>
+      <span class='product-price'>₹ {$originalPrice}</span>
+    </p>
+
+    <button class='add-to-cart' data-id='{$row['id']}'>Add to Cart</button>
+  </div>
+</div>";
                 }
             } else {
                 echo "<p>No products found.</p>";
             }
 
-            $conn->close();
             ?>
-
         </div>
     </section>
-
 
     <section class="deal-section">
         <div class="deal-content">
@@ -195,7 +235,7 @@
                 <div><span id="seconds">00</span><small>SECS</small></div>
             </div>
 
-            <button class="shop-btn">Shop now</button>
+            <button class="shop-btn" data-category="Mix">Shop now</button>
         </div>
 
         <!-- Product Image -->
@@ -206,6 +246,67 @@
             <div class="sale-badge">30% OFF</div>
         </div>
     </section>
+
+
+    <!-- ================== Shots Section ================== -->
+    <section class="product-section">
+        <h2>Herbal Shots</h2>
+        <div id="shots-container" class="product-container">
+            <?php
+            $conn = new mysqli("localhost", "root", "", "dbjuice");
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // Fetch only Shots products
+            $sql = "SELECT * FROM products WHERE is_deleted = 0 AND category = 'Herbal'";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $price100 = (int)$row['price']; // Shots usually 100ml (adjust if needed)
+
+                    echo "
+                <div class='product-card' id='product{$row['id']}'>
+  <div class='product-card-content'>
+    <a href='product.php?id={$row['id']}#product{$row['id']}'>
+      <div class='flip-container'>
+        <div class='flip-inner'>
+          <!-- Front Side (Image) -->
+          <div class='flip-front'>
+            <img src='{$row['image_path']}' alt='{$row['name']}' class='product-image'>
+          </div>
+          <!-- Back Side (Static Info) -->
+          <div class='flip-back'>
+          <h4>Ingredients</h4>
+                <p>{$row['ingredients']}</p>  
+          <p><strong>Benefits:</strong> Boosts immunity, refreshes body</p>
+            <p><strong>Storage:</strong> Keep refrigerated</p>
+          </div>
+        </div>
+      </div>
+      <h3>{$row['name']}</h3>
+    </a>
+                        <p>{$row['description']}</p>
+
+                        <!-- Fixed size for Shots -->
+                        <p class='price'>
+                            <span class='product-price'>₹ {$price100}</span>
+                        </p>
+
+                        <button class='add-to-cart' data-id='{$row['id']}'>Add to Cart</button>
+                    </div>
+                </div>";
+                }
+            } else {
+                echo "<p>No shots available.</p>";
+            }
+            ?>
+        </div>
+    </section>
+
+
+
 
 
     <!-- Footer Section -->
@@ -220,25 +321,29 @@
             <!-- Column 2 -->
             <div class="footer-column">
                 <ul>
-                    <li><a href="home.php">Shop</a></li>
-                    <li><a href="orders.php">Orders</a></li>
-                    <li><a href="#">Return Policy</a></li>
-                    <li><a href="about.php">About Us</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="product.php">Shop now</a></li>
+                    <li><a href="myacc.php">Orders</a></li>
+                    <li><a href="about.php">Know Us</a></li>
                 </ul>
             </div>
 
             <!-- Column 3 -->
             <div class="footer-column">
                 <ul>
-                    <li><a href="#">Know Us</a></li>
+                    <li><a href="about.php">About Us</a></li>
                     <li><a href="contact.php">Contact</a></li>
-                    <li><a href="#">Customer Service</a></li>
                     <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
                 </ul>
             </div>
 
+            <!-- Column 4 -->
+            <div class="footer-column">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                </ul>
+            </div>
             <!-- Column 4: Social Icons (Updated) -->
             <div class="footer-column social">
                 <ul class="footer-social-icons">
@@ -358,42 +463,42 @@
 
 
     <script>
-    // Check if we already stored an end date
-    let countdownDate = localStorage.getItem("countdownDate");
+        // Check if we already stored an end date
+        let countdownDate = localStorage.getItem("countdownDate");
 
-    if (!countdownDate) {
-        // If not stored, set new end date (10 days from now)
-        let newDate = new Date();
-        newDate.setDate(newDate.getDate() + 10);
-        countdownDate = newDate.getTime();
-        localStorage.setItem("countdownDate", countdownDate);
-    } else {
-        countdownDate = parseInt(countdownDate);
-    }
-
-    function updateCountdown() {
-        let now = new Date().getTime();
-        let distance = countdownDate - now;
-
-        if (distance < 0) {
-            document.querySelector(".countdown").innerHTML = "<h3>Offer Expired</h3>";
-            return;
+        if (!countdownDate) {
+            // If not stored, set new end date (10 days from now)
+            let newDate = new Date();
+            newDate.setDate(newDate.getDate() + 10);
+            countdownDate = newDate.getTime();
+            localStorage.setItem("countdownDate", countdownDate);
+        } else {
+            countdownDate = parseInt(countdownDate);
         }
 
-        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        function updateCountdown() {
+            let now = new Date().getTime();
+            let distance = countdownDate - now;
 
-        document.getElementById("days").innerText = days;
-        document.getElementById("hours").innerText = hours;
-        document.getElementById("minutes").innerText = minutes;
-        document.getElementById("seconds").innerText = seconds;
-    }
+            if (distance < 0) {
+                document.querySelector(".countdown").innerHTML = "<h3>Offer Expired</h3>";
+                return;
+            }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-</script>
+            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -408,6 +513,100 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const productContainer = document.getElementById("products-container");
+
+            document.querySelectorAll(".shop-btn").forEach(btn => {
+                btn.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    const category = this.dataset.category;
+
+                    if (category === "Herbal") {
+                        // Jump directly to Herbal Shots section
+                        document.querySelector("#shots-container").scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+                    } else {
+                        // Fetch filtered products for Fruit, Vegetable, Mix
+                        fetch("fetch_products.php?category=" + encodeURIComponent(category))
+                            .then(res => res.text())
+                            .then(html => {
+                                productContainer.innerHTML = html;
+
+                                // Scroll smoothly to products section
+                                document.querySelector(".product-section").scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "start"
+                                });
+                            });
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Check if the URL contains a hash
+            const hash = window.location.hash;
+            if (hash) {
+                // If a hash exists, scroll to the element with that ID
+                const element = document.querySelector(hash);
+                if (element) {
+                    // Scroll the page to the element
+                    element.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+            }
+        });
+    </script>
+
+
+    <!-- Address Form Modal -->
+    <div id="addressModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Enter Delivery Address</h2>
+            <form method="POST">
+                <input type="text" name="full_name" placeholder="Full Name" required>
+                <input type="text" name="phone" placeholder="Phone Number" required>
+                <input type="text" name="address_line" placeholder="Address Line" required>
+                <input type="text" name="city" placeholder="City" required>
+                <input type="text" name="state" placeholder="State" required>
+                <input type="text" name="postal_code" placeholder="Postal Code" required>
+                <select name="address_type">
+                    <option value="Home">Home</option>
+                    <option value="Office">Office</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button type="submit" name="save_address">Save Address</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Show modal when button clicked
+        document.getElementById("checkoutBtn").onclick = function() {
+            document.getElementById("addressModal").style.display = "flex";
+        }
+
+        // Close modal
+        document.querySelector(".close").onclick = function() {
+            document.getElementById("addressModal").style.display = "none";
+        }
+
+        // Close if clicked outside modal
+        window.onclick = function(event) {
+            if (event.target == document.getElementById("addressModal")) {
+                document.getElementById("addressModal").style.display = "none";
+            }
+        }
+    </script>
+
 
 </body>
 

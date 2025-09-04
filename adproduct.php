@@ -13,6 +13,7 @@ $restoredFlag = isset($_GET['restored']) ? true : false;
 <html>
 <head>
     <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <title>Product Management</title>
     <link rel="stylesheet" href="adproductstyle.css">
 </head>
@@ -51,7 +52,7 @@ $restoredFlag = isset($_GET['restored']) ? true : false;
             </select><br><br>
 
             <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
-            <img id="preview" src="#" alt="Image Preview" style="display: none; width: 100px; height: 220px; margin-top: 10px; border-radius: 8px;">
+            <img id="preview" src="#" alt="Image Preview" style="display: none; width: 100px; height: 100px; margin-top: 10px; border-radius: 8px;">
             <button type="submit" name="add_product">Add Product</button>
             <button type="submit" name="update_product">Update Product</button>
         </form>
@@ -70,7 +71,7 @@ $restoredFlag = isset($_GET['restored']) ? true : false;
                 <td><?= htmlspecialchars($row['category']) ?></td>
                 <td>
                     <?php if (!empty($row['image_path'])): ?>
-                        <img src="<?= htmlspecialchars($row['image_path']) ?>" alt="img" style="width:40px;height:80px;">
+                        <img src="<?= htmlspecialchars($row['image_path']) ?>" alt="img" style="width:100px;height:80px;">
                     <?php endif; ?>
                 </td>
                 <td style="display:flex; gap:10px; margin-top: 12px; height:100px; align-items:center;">
@@ -205,7 +206,7 @@ $restoredFlag = isset($_GET['restored']) ? true : false;
                 }).catch(()=>{/*ignore*/});
                 lastDeletedId = null;
             }
-        }, 6000);
+        }, 12000);
     }
 
     function hideToastImmediate() {
