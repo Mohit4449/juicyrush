@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php
+session_start();
+$redirect = isset($_GET['redirect']) ? $_GET['redirect'] : 'myacc.php';
+$_SESSION['redirect_url'] = $redirect;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +40,7 @@
 
     <header class="navbar">
         <div class="logo">
-            <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+            <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo"></a>
         </div>
     </header>
 
@@ -44,6 +49,7 @@
         <div class="form-box login">
             <form action="auth.php" method="post">
                 <h1>Login</h1>
+                <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirect); ?>">
 
                 <?php
                 if (isset($_SESSION['error'])) {

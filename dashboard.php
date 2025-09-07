@@ -1,8 +1,12 @@
 <?php
 include 'config.php';
 
+// detect current page
+$current_page = basename($_SERVER['PHP_SELF']);
+
 // ================= Revenue Data =================
-$query = "
+// Revenue from normal orders
+$query1 = "
     SELECT 
         DATE_FORMAT(date_of_order, '%Y-%m') AS month,
         SUM(total_amount) AS revenue
@@ -10,14 +14,42 @@ $query = "
     GROUP BY DATE_FORMAT(date_of_order, '%Y-%m')
     ORDER BY month ASC
 ";
-$result = mysqli_query($conn, $query);
+$result1 = mysqli_query($conn, $query1);
 
 $months = [];
-$revenues = [];
-
-while ($row = mysqli_fetch_assoc($result)) {
+$normalRevenue = [];
+while ($row = mysqli_fetch_assoc($result1)) {
     $months[] = $row['month'];
-    $revenues[] = $row['revenue'];
+    $normalRevenue[] = $row['revenue'];
+}
+
+// Revenue from custom orders
+$query2 = "
+    SELECT 
+        DATE_FORMAT(created_at, '%Y-%m') AS month,
+        SUM(total_amount) AS revenue
+    FROM custom_order
+    GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+    ORDER BY month ASC
+";
+$result2 = mysqli_query($conn, $query2);
+
+$customRevenue = [];
+$customMonths = [];
+while ($row = mysqli_fetch_assoc($result2)) {
+    $customMonths[] = $row['month'];
+    $customRevenue[] = $row['revenue'];
+}
+
+// ✅ Align months
+$allMonths = array_unique(array_merge($months, $customMonths));
+sort($allMonths);
+
+$normalRevenueAligned = [];
+$customRevenueAligned = [];
+foreach ($allMonths as $m) {
+    $normalRevenueAligned[] = in_array($m, $months) ? $normalRevenue[array_search($m, $months)] : 0;
+    $customRevenueAligned[] = in_array($m, $customMonths) ? $customRevenue[array_search($m, $customMonths)] : 0;
 }
 
 // ================= Most Sold Products =================
@@ -31,11 +63,11 @@ if ($result->num_rows > 0) {
         $orderDetails = json_decode($row['order_details'], true);
         if (is_array($orderDetails)) {
             foreach ($orderDetails as $product) {
-                $name = $product['name']; // product name
+                $name = $product['name'];
                 if (!isset($productCounts[$name])) {
                     $productCounts[$name] = 0;
                 }
-                $productCounts[$name] += 1; // count each occurrence
+                $productCounts[$name] += 1;
             }
         }
     }
@@ -43,7 +75,6 @@ if ($result->num_rows > 0) {
 
 $productLabels = json_encode(array_keys($productCounts));
 $productData   = json_encode(array_values($productCounts));
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,13 +83,12 @@ $productData   = json_encode(array_values($productCounts));
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-
-    <title>Admin Dashboard</title>
+    <title>Admin • Dashboard</title>
     <link rel="stylesheet" href="dashstyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons/css/all/all.css">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js" defer></script>
     <script src="dashscript.js" defer></script>
@@ -70,14 +100,25 @@ $productData   = json_encode(array_values($productCounts));
         <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="logo-container">
-                <img src="images/logo-removebg-preview.png" alt="Juice Logo" class="logo">
+                <img src="images/logo.png" alt="logo">
             </div>
             <nav class="nav-links">
-                <a href="dashboard.php" class="nav-link">Home</a>
-                <a href="adproduct.php" class="nav-link">Products</a>
-                <a href="order.php" class="nav-link">Orders</a>
-                <a href="customer.php" class="nav-link">Users</a>
+                <a href="dashboard.php" class="nav-link <?= ($current_page == 'dashboard.php') ? 'active' : '' ?>">Home</a>
+                <a href="adproduct.php" class="nav-link <?= ($current_page == 'adproduct.php') ? 'active' : '' ?>">Products</a>
+                <a href="admin_custom_juice.php" class="nav-link <?= ($current_page == 'admin_custom_juice.php') ? 'active' : '' ?>">Custom Products</a>
+                <a href="order.php" class="nav-link <?= ($current_page == 'order.php') ? 'active' : '' ?>">Orders</a>
+                <a href="customer.php" class="nav-link <?= ($current_page == 'customer.php') ? 'active' : '' ?>">Users</a>
                 <a href="logout.php" class="nav-link logout">Logout</a>
+                <div class="theme-toggle">
+                    <input type="checkbox" id="themeSwitch" />
+                    <label for="themeSwitch" class="toggle">
+                        <span class="toggle-icons">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </span>
+                    </label>
+                </div>
+
             </nav>
         </div>
 
@@ -124,16 +165,28 @@ $productData   = json_encode(array_values($productCounts));
                     <h2 class="card-title">Total Revenue</h2>
                     <p class="card-value">
                         <?php
-                        $query = "SELECT SUM(total_amount) AS total_revenue FROM orders";
-                        $result = mysqli_query($conn, $query);
-                        $row = mysqli_fetch_assoc($result);
-                        echo '₹ ' . number_format($row['total_revenue']);
+                        // Total revenue from normal orders
+                        $query1 = "SELECT SUM(total_amount) AS total_revenue FROM orders";
+                        $result1 = mysqli_query($conn, $query1);
+                        $row1 = mysqli_fetch_assoc($result1);
+                        $normal_revenue = $row1['total_revenue'] ?? 0;
+
+                        // Total revenue from custom orders
+                        $query2 = "SELECT SUM(total_amount) AS total_revenue FROM custom_order";
+                        $result2 = mysqli_query($conn, $query2);
+                        $row2 = mysqli_fetch_assoc($result2);
+                        $custom_revenue = $row2['total_revenue'] ?? 0;
+
+                        // Combine both
+                        $total_revenue = $normal_revenue + $custom_revenue;
+
+                        echo '₹ ' . number_format($total_revenue, 2);
                         ?>
                     <div class="icon">
                         <i class="fi fi-rs-coins"></i>
                     </div>
-
                     </p>
+
                 </div>
 
                 <div class="card">
@@ -191,19 +244,30 @@ $productData   = json_encode(array_values($productCounts));
     </div>
 
     <script>
-        // === Revenue Chart ===
         const ctx = document.getElementById('revenueChart').getContext('2d');
-        new Chart(ctx, {
+        const revenueChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: <?php echo json_encode($months); ?>,
+                labels: <?php echo json_encode($allMonths); ?>,
                 datasets: [{
-                    label: 'Revenue',
-                    data: <?php echo json_encode($revenues); ?>,
-                    backgroundColor: 'rgba(26, 66, 66, 0.58)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 2
-                }]
+                        label: 'Normal Orders Revenue',
+                        data: <?php echo json_encode($normalRevenueAligned); ?>,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    },
+                    {
+                        label: 'Custom Orders Revenue',
+                        data: <?php echo json_encode($customRevenueAligned); ?>,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }
+                ]
             },
             options: {
                 responsive: true,
@@ -227,9 +291,7 @@ $productData   = json_encode(array_values($productCounts));
                 plugins: {
                     legend: {
                         labels: {
-                            font: {
-                                size: 14
-                            }
+                            color: "#1f2937" // default light mode
                         }
                     }
                 }
@@ -238,7 +300,7 @@ $productData   = json_encode(array_values($productCounts));
 
         // === Most Sold Products Chart ===
         const productCtx = document.getElementById('productChart').getContext('2d');
-        new Chart(productCtx, {
+        const productChart = new Chart(productCtx, {
             type: 'bar',
             data: {
                 labels: <?php echo $productLabels; ?>,
@@ -246,11 +308,28 @@ $productData   = json_encode(array_values($productCounts));
                     label: 'Units Sold',
                     data: <?php echo $productData; ?>,
                     backgroundColor: [
-                        '#FF6384', '#FFCE56', '#5fea90ff',
-                        '#ff8a04ff', '#7735fbff', '#FF9F40', '#00ff40ff'
+                        'rgba(255, 99, 132, 0.6)', // pink
+                        'rgba(255, 206, 86, 0.6)', // yellow
+                        'rgba(95, 234, 144, 0.6)', // green
+                        'rgba(255, 138, 4, 0.6)', // orange
+                        'rgba(119, 53, 251, 0.6)', // purple
+                        'rgba(255, 159, 64, 0.6)', // orange-light
+                        'rgba(0, 255, 64, 0.6)' // neon green
                     ],
-                    borderWidth: 1
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(95, 234, 144, 1)',
+                        'rgba(255, 138, 4, 1)',
+                        'rgba(119, 53, 251, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(0, 255, 64, 1)'
+                    ],
+                    borderWidth: 2,
+                    barPercentage: 0.8
+
                 }]
+
             },
             options: {
                 responsive: true,
@@ -261,16 +340,25 @@ $productData   = json_encode(array_values($productCounts));
                         ticks: {
                             precision: 0
                         }
+                    },
+                    x: {
+                        ticks: {
+                            color: "#1f2937"
+                        }
                     }
                 },
                 plugins: {
                     legend: {
-                        display: false
+                        display: false,
+                        labels: {
+                            color: "#1f2937"
+                        }
                     }
                 }
             }
         });
     </script>
+
 
 </body>
 

@@ -9,11 +9,11 @@
     <title>About Us - Fresh Juice</title>
     <link rel="stylesheet" href="style/aboutstyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <!-- Add Animate.css for animations -->
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
@@ -23,31 +23,31 @@
     <?php
     session_start();
     ?>
-      <header class="navbar">
-    <div class="navbar-container">
-      <div class="logo">
-        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
-      </div>
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo"></a>
+            </div>
 
-      <button class="menu-toggle" id="menu-toggle">
-        <i class="fas fa-bars"></i>
-      </button>
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
 
-      <nav class="nav-links" id="nav-links">
-        <a href="home.php">Home</a>
-        <a href="product.php">Product</a>
-        <a href="about.php">About us</a>
-        <a href="contact.php">Contact</a>
-      </nav>
+            <nav class="nav-links" id="nav-links">
+                <a href="home.php">Home</a>
+                <a href="product.php">Product</a>
+                <a href="about.php">About us</a>
+                <a href="contact.php">Contact</a>
+            </nav>
 
-      <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
-          <i class="fas fa-user-circle"></i>
-        </a>
-        <a href="product.php" class="shop-btn">Shop Now</a>
-      </div>
-    </div>
-  </header>
+            <div class="nav-right">
+                <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+                <a href="product.php" class="shop-btn">Shop Now</a>
+            </div>
+        </div>
+    </header>
 
     <!-- About Section -->
     <section class="about animate__animated animate__fadeInUp">
@@ -121,36 +121,36 @@
         <div class="footer-container">
             <!-- Column 1 -->
             <div class="footer-column logo-col">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
+                <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo" class="footer-logo"></a>
                 <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
             </div>
 
-                <!-- Column 2 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="product.php">Shop now</a></li>
-          <li><a href="myacc.php">Orders</a></li>
-          <li><a href="about.php">Know Us</a></li>
-        </ul>
-      </div>
+            <!-- Column 2 -->
+            <div class="footer-column">
+                <ul>
+                    <li><a href="product.php">Shop now</a></li>
+                    <li><a href="myacc.php">Orders</a></li>
+                    <li><a href="about.php">Know Us</a></li>
+                </ul>
+            </div>
 
-      <!-- Column 3 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
-        </ul>
-      </div>
+            <!-- Column 3 -->
+            <div class="footer-column">
+                <ul>
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
 
-      <!-- Column 4 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return Policy</a></li>
-        </ul>
-      </div>
+            <!-- Column 4 -->
+            <div class="footer-column">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                </ul>
+            </div>
 
             <!-- Column 4: Social Icons (Updated) -->
             <div class="footer-column social">

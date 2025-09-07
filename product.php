@@ -27,7 +27,7 @@ include 'config.php';
     <header class="navbar">
         <div class="navbar-container">
             <div class="logo">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+                <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo"></a>
             </div>
 
             <!-- Search Bar -->
@@ -43,7 +43,10 @@ include 'config.php';
             </nav>
 
             <div class="nav-right">
-                <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+                <a href="<?php echo isset($_SESSION['username'])
+                                ? 'myacc.php'
+                                : 'login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']); ?>"
+                    class="user-icon">
                     <i class="fas fa-user-circle"></i>
                 </a>
             </div>
@@ -106,7 +109,7 @@ include 'config.php';
         <h2>Customise Juice</h2>
         <div class="custombox">
             <h3>Make Your Own Juice</h3>
-            <a href="custom.php" class="makebtn">Make now</a>
+            <a href="user_make_custom_juice.php" class="makebtn">Make now</a>
         </div>
     </section>
 
@@ -314,7 +317,7 @@ include 'config.php';
         <div class="footer-container">
             <!-- Column 1 -->
             <div class="footer-column logo-col">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
+                <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo" class="footer-logo"></a>
                 <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
             </div>
 
@@ -565,47 +568,6 @@ include 'config.php';
         });
     </script>
 
-
-    <!-- Address Form Modal -->
-    <div id="addressModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Enter Delivery Address</h2>
-            <form method="POST">
-                <input type="text" name="full_name" placeholder="Full Name" required>
-                <input type="text" name="phone" placeholder="Phone Number" required>
-                <input type="text" name="address_line" placeholder="Address Line" required>
-                <input type="text" name="city" placeholder="City" required>
-                <input type="text" name="state" placeholder="State" required>
-                <input type="text" name="postal_code" placeholder="Postal Code" required>
-                <select name="address_type">
-                    <option value="Home">Home</option>
-                    <option value="Office">Office</option>
-                    <option value="Other">Other</option>
-                </select>
-                <button type="submit" name="save_address">Save Address</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        // Show modal when button clicked
-        document.getElementById("checkoutBtn").onclick = function() {
-            document.getElementById("addressModal").style.display = "flex";
-        }
-
-        // Close modal
-        document.querySelector(".close").onclick = function() {
-            document.getElementById("addressModal").style.display = "none";
-        }
-
-        // Close if clicked outside modal
-        window.onclick = function(event) {
-            if (event.target == document.getElementById("addressModal")) {
-                document.getElementById("addressModal").style.display = "none";
-            }
-        }
-    </script>
 
 
 </body>

@@ -31,7 +31,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
   <header class="navbar">
     <div class="navbar-container">
       <div class="logo">
-        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+        <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo"></a>
       </div>
 
 
@@ -39,7 +39,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
         <?php if (isset($_SESSION['username'])): ?>
           <a href="logout.php">Logout</a>
         <?php else: ?>
-          <a href="login.php">Login</a>
+          <a href="login.php?redirect=<?php echo urlencode($_SERVER['REQUEST_URI']); ?>">Login</a>
         <?php endif; ?>
         <a href="home.php">Home</a>
         <a href="product.php">Product</a>
@@ -166,7 +166,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin') {
     <div class="footer-container">
       <!-- Column 1 -->
       <div class="footer-column logo-col">
-        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
+        <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo" class="footer-logo"></a>
         <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
       </div>
 

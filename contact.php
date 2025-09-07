@@ -68,7 +68,7 @@ if (isset($_POST['feedback_submit'])) {
     <header class="navbar">
         <div class="navbar-container">
             <div class="logo">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+                <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo"></a>
             </div>
 
             <button class="menu-toggle" id="menu-toggle">
@@ -128,36 +128,36 @@ if (isset($_POST['feedback_submit'])) {
         <div class="footer-container">
             <!-- Column 1 -->
             <div class="footer-column logo-col">
-                <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
+                <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo" class="footer-logo"></a>
                 <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
             </div>
 
-                <!-- Column 2 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="product.php">Shop now</a></li>
-          <li><a href="myacc.php">Orders</a></li>
-          <li><a href="about.php">Know Us</a></li>
-        </ul>
-      </div>
+            <!-- Column 2 -->
+            <div class="footer-column">
+                <ul>
+                    <li><a href="product.php">Shop now</a></li>
+                    <li><a href="myacc.php">Orders</a></li>
+                    <li><a href="about.php">Know Us</a></li>
+                </ul>
+            </div>
 
-      <!-- Column 3 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
-        </ul>
-      </div>
+            <!-- Column 3 -->
+            <div class="footer-column">
+                <ul>
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
 
-      <!-- Column 4 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return Policy</a></li>
-        </ul>
-      </div>
+            <!-- Column 4 -->
+            <div class="footer-column">
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Return Policy</a></li>
+                </ul>
+            </div>
             <!-- Column 4: Social Icons -->
             <div class="footer-column social">
                 <ul class="footer-social-icons">

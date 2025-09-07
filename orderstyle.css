@@ -1,0 +1,394 @@
+@import url('https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css');
+
+* {
+  font-family: 'Urbanist', sans-serif;
+}
+
+body {
+  background: #f3f4f6;
+  color: #1f2937;
+  transition: background 0.3s, color 0.3s;
+}
+
+
+/* Dark Mode */
+body.dark-mode {
+  background: #2D2D30;
+  color: #f9fafb;
+}
+
+/* Example for cards, tables, etc. */
+
+
+
+/* Toggle Button Style */
+.theme-toggle button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 16rem;
+  /* Matches Tailwind 'w-64' */
+  background: #FFFFFF;
+  height: 100vh;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: width 0.3s;
+  overflow-x: hidden;
+  position: fixed;
+  z-index: 10;
+}
+
+body.dark-mode .sidebar {
+  background: #19191C;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  padding: 1.25rem 0;
+  /* Keep padding minimal when collapsed */
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+
+}
+
+.logo-container img {
+  height: 100px;
+  width: 110px;
+}
+
+
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nav-link {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #444050;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .nav-link {
+  color: #f9fafb;
+}
+
+.nav-link:hover {
+  background-color: #dbeafe;
+}
+
+.nav-link.active {
+  background: linear-gradient(to right, #eb9f25, #f6d43b);
+  color: #444050;
+}
+
+body.dark-mode .nav-link.active {
+  background-color: #2563eb;
+  color: #f9fafb;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle input {
+  display: none;
+  /* hide checkbox */
+}
+
+.toggle {
+  width: 70px;
+  height: 35px;
+  background: #e5e7eb;
+  border-radius: 35px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+
+.toggle-icons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 27px;
+  height: 27px;
+  background: #2564eb69;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle input:checked+.toggle {
+  background: #2b3751;
+}
+
+
+.theme-toggle input:checked+.toggle::after {
+  transform: translateX(35px);
+}
+
+.theme-toggle input:checked+.toggle .toggle-icons {
+  color: #f9fafb;
+}
+
+
+.toggle-btn {
+  background: #FFD54F;
+  border: none;
+  cursor: pointer;
+  font-size: 1.0rem;
+  color: #444050;
+  padding: 10px;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+  margin-left: 20px;
+}
+
+.toggle-btn.active {
+  background: #ff8800;
+  color: #fff;
+}
+
+/* Main Content */
+.main-content {
+  margin-left: 16rem;
+  padding: 20px;
+  transition: margin-left .3s ease, width 0.3s ease;
+  min-height: 100vh;
+}
+
+.sidebar.collapsed~.main-content {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Top open button */
+.openbtn {
+  color: white;
+  background-color: #16a34a;
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 40;
+}
+
+.openbtn:hover {
+  background: #15803d;
+}
+
+
+h2 {
+  padding: 20px;
+  margin-left: 30px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+
+/* Buttons (above slider) */
+.order-buttons {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0 8px 0;
+  position: relative;
+  z-index: 60;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.theme-toggle input {
+  display: none;
+  /* hide checkbox */
+}
+
+.toggle {
+  width: 70px;
+  height: 35px;
+  background: #e5e7eb;
+  border-radius: 35px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+
+.toggle-icons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #1f2937;
+}
+
+.toggle::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 27px;
+  height: 27px;
+  background: #2564eb69;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle input:checked+.toggle {
+  background: #2b3751;
+}
+
+
+.theme-toggle input:checked+.toggle::after {
+  transform: translateX(35px);
+}
+
+.theme-toggle input:checked+.toggle .toggle-icons {
+  color: #f9fafb;
+}
+
+/* Slider viewport */
+.slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 8px;
+  z-index: 10;
+}
+
+/* Container that slides left/right (two panes side-by-side) */
+.tables-container {
+  display: flex;
+  width: 200%;
+  /* 2 panes => 200% */
+  transition: transform 0.55s cubic-bezier(.2, .9, .2, 1);
+  will-change: transform;
+  position: relative;
+  z-index: 1;
+}
+
+/* Each pane (holds one table) occupies 50% of container width */
+.pane {
+  width: 50%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Table card */
+.table-card {
+  width: 100%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+  padding: 12px;
+  overflow: auto;
+}
+
+body.dark-mode .table-card {
+  background: #1E1E21;
+}
+
+/* Table styling */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eee;
+  vertical-align: top;
+  text-align: left;
+}
+
+.orders-table thead th {
+  background: #FFD54F;
+  color: #222;
+  font-weight: 700;
+}
+
+body.dark-mode .orders-table thead th {
+  background: #f7d200a4;
+  color: #f9fafb;
+}
+
+.orders-table tr:hover {
+  background: rgba(248, 233, 104, 0.08);
+}
+
+/* Small screens: stack panes vertically (no sliding) */
+@media (max-width: 900px) {
+  .sidebar {
+    display: none;
+  }
+
+  /* admin can hide sidebar on small screens or adjust as you like */
+  .main-content {
+    margin-left: 0;
+    padding: 12px;
+  }
+
+  .tables-container {
+    display: block;
+    width: 100%;
+    transform: none !important;
+  }
+
+  .pane {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .order-buttons {
+    position: sticky;
+    top: 8px;
+    background: transparent;
+    z-index: 100;
+  }
+}

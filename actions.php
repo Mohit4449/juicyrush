@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS products (
 ");
 
 // Helper: add column if missing (safe)
-function ensure_column_exists($conn, $column, $ddl) {
+function ensure_column_exists($conn, $column, $ddl)
+{
     $col = $conn->real_escape_string($column);
     $res = $conn->query("SHOW COLUMNS FROM products LIKE '$col'");
     if ($res && $res->num_rows === 0) {

@@ -26,35 +26,35 @@ $userId = $loggedIn ? $_SESSION['user_id'] : null;
 
     <!-- Navbar -->
     <header class="navbar">
-    <div class="navbar-container">
-      <div class="logo">
-        <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo"></a>
+      <div class="navbar-container">
+        <div class="logo">
+          <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo"></a>
+        </div>
+
+        <button class="menu-toggle" id="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <nav class="nav-links" id="nav-links">
+          <?php if (isset($_SESSION['username'])): ?>
+            <a href="logout.php">Logout</a>
+          <?php else: ?>
+            <a href="login.php">Login</a>
+          <?php endif; ?>
+          <a href="home.php">Home</a>
+          <a href="product.php">Product</a>
+          <a href="about.php">About us</a>
+          <a href="contact.php">Contact</a>
+        </nav>
+
+        <div class="nav-right">
+          <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
+            <i class="fas fa-user-circle"></i>
+          </a>
+          <a href="product.php" class="shop-btn">Shop Now</a>
+        </div>
       </div>
-
-      <button class="menu-toggle" id="menu-toggle">
-        <i class="fas fa-bars"></i>
-      </button>
-
-      <nav class="nav-links" id="nav-links">
-        <?php if (isset($_SESSION['username'])): ?>
-          <a href="logout.php">Logout</a>
-        <?php else: ?>
-          <a href="login.php">Login</a>
-        <?php endif; ?>
-        <a href="home.php">Home</a>
-        <a href="product.php">Product</a>
-        <a href="about.php">About us</a>
-        <a href="contact.php">Contact</a>
-      </nav>
-
-      <div class="nav-right">
-        <a href="<?php echo isset($_SESSION['username']) ? 'myacc.php' : 'login.php'; ?>" class="user-icon">
-          <i class="fas fa-user-circle"></i>
-        </a>
-        <a href="product.php" class="shop-btn">Shop Now</a>
-      </div>
-    </div>
-  </header>
+    </header>
 
 
     <!-- Main Account Section -->
@@ -68,7 +68,7 @@ $userId = $loggedIn ? $_SESSION['user_id'] : null;
         </p>
         <h2>Your Order</h2>
         <?php
-        
+
         $sql = "SELECT o.id, u.username, o.order_details, o.total_items, o.total_amount, o.date_of_order
         FROM orders o
         JOIN users u ON o.user_id = u.id
@@ -121,10 +121,87 @@ $userId = $loggedIn ? $_SESSION['user_id'] : null;
           <p>No orders placed yet.</p>
         <?php endif; ?>
 
-        <div class="account-box">
-          <h3>Account Details</h3>
-          <a href="address.php" class="address-btn">View Addresses (0)</a>
-        </div>
+
+        <!-- ================= Custom Juice Orders Section ================= -->
+        <h2>Your Custom Juice Orders</h2>
+        <?php
+        $sql2 = "SELECT co.id, co.size_id, co.fruits, co.ingredients, co.total_volume_ml, co.total_amount, co.created_at, 
+                s.name AS size_name, s.volume_ml
+         FROM custom_order co
+         JOIN users u ON co.user_id = u.id
+         LEFT JOIN custom_juice s ON co.size_id = s.id
+         WHERE co.user_id = ?
+         ORDER BY co.created_at DESC";
+
+        $stmt2 = $conn->prepare($sql2);
+        $stmt2->bind_param("i", $userId);
+        $stmt2->execute();
+        $result2 = $stmt2->get_result();
+
+        if ($result2->num_rows > 0): ?>
+          <div class="order-table-container">
+            <table class="order-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Size</th>
+                  <th>Fruits</th>
+                  <th>Ingredients</th>
+                  <th>Total Volume</th>
+                  <th>Total Amount</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php while ($row2 = $result2->fetch_assoc()): ?>
+                  <tr>
+                    <td><?= htmlspecialchars($row2['id']) ?></td>
+                    <td>
+                      <?= htmlspecialchars($row2['size_name'] ?? 'Unknown') ?>
+                      (<?= htmlspecialchars($row2['volume_ml'] ?? 0) ?> ml)
+                    </td>
+                    <td>
+                      <?php
+                      $fruits = json_decode($row2['fruits'], true);
+                      if (is_array($fruits) && count($fruits) > 0) {
+                        foreach ($fruits as $fruit) {
+                          $name  = htmlspecialchars($fruit['name'] ?? 'Unknown');
+                          $price = isset($fruit['price']) ? " (₹" . htmlspecialchars($fruit['price']) . ")" : "";
+                          echo $name . $price . "<br>";
+                        }
+                      } else {
+                        echo "—";
+                      }
+                      ?>
+                    </td>
+                    <td>
+                      <?php
+                      $ings = json_decode($row2['ingredients'], true);
+                      if (is_array($ings) && count($ings) > 0) {
+                        foreach ($ings as $ing) {
+                          $name  = htmlspecialchars($ing['name'] ?? 'Unknown');
+                          $price = isset($ing['price']) ? " (₹" . htmlspecialchars($ing['price']) . ")" : "";
+                          echo $name . $price . "<br>";
+                        }
+                      } else {
+                        echo "None";
+                      }
+                      ?>
+                    </td>
+                    <td><?= htmlspecialchars($row2['total_volume_ml']) ?> ml</td>
+                    <td>₹<?= htmlspecialchars($row2['total_amount']) ?></td>
+                    <td><?= htmlspecialchars($row2['created_at']) ?></td>
+                  </tr>
+                <?php endwhile; ?>
+              </tbody>
+            </table>
+          </div>
+        <?php else: ?>
+          <p>No custom juice orders placed yet.</p>
+        <?php endif; ?>
+
+
+
       <?php else: ?>
         <p class="notlogged">Please <a href="login.php">login</a> to view your account.</p>
       <?php endif; ?>
@@ -135,36 +212,36 @@ $userId = $loggedIn ? $_SESSION['user_id'] : null;
       <div class="footer-container">
         <!-- Column 1 -->
         <div class="footer-column logo-col">
-          <a href="home.php"><img src="images/logo-removebg-preview.png" alt="Juice Logo" class="footer-logo"></a>
+          <a href="home.php"><img src="images/logo-dark.png" alt="Juice Logo" class="footer-logo"></a>
           <p class="footer-text">© 2025, Juicy Rush Pvt. Ltd.</p>
         </div>
 
-             <!-- Column 2 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="product.php">Shop now</a></li>
-          <li><a href="myacc.php">Orders</a></li>
-          <li><a href="about.php">Know Us</a></li>
-        </ul>
-      </div>
+        <!-- Column 2 -->
+        <div class="footer-column">
+          <ul>
+            <li><a href="product.php">Shop now</a></li>
+            <li><a href="myacc.php">Orders</a></li>
+            <li><a href="about.php">Know Us</a></li>
+          </ul>
+        </div>
 
-      <!-- Column 3 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="about.php">About Us</a></li>
-          <li><a href="contact.php">Contact</a></li>
-          <li><a href="#">Terms & Conditions</a></li>
-        </ul>
-      </div>
+        <!-- Column 3 -->
+        <div class="footer-column">
+          <ul>
+            <li><a href="about.php">About Us</a></li>
+            <li><a href="contact.php">Contact</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
 
-      <!-- Column 4 -->
-      <div class="footer-column">
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Shipping Policy</a></li>
-          <li><a href="#">Return Policy</a></li>
-        </ul>
-      </div>
+        <!-- Column 4 -->
+        <div class="footer-column">
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Return Policy</a></li>
+          </ul>
+        </div>
 
         <!-- Column 4: Social Icons (Updated) -->
         <div class="footer-column social">
