@@ -8,10 +8,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
 // Revenue from normal orders
 $query1 = "
     SELECT 
-        DATE_FORMAT(date_of_order, '%Y-%m') AS month,
+        DATE_FORMAT(order_date, '%Y-%m') AS month,
         SUM(total_amount) AS revenue
     FROM orders
-    GROUP BY DATE_FORMAT(date_of_order, '%Y-%m')
+    GROUP BY DATE_FORMAT(order_date, '%Y-%m')
     ORDER BY month ASC
 ";
 $result1 = mysqli_query($conn, $query1);

@@ -69,11 +69,11 @@ $userId = $loggedIn ? $_SESSION['user_id'] : null;
         <h2>Your Order</h2>
         <?php
 
-        $sql = "SELECT o.id, u.username, o.order_details, o.total_items, o.total_amount, o.date_of_order
+        $sql = "SELECT o.order_id, u.username, o.order_details, o.total_items, o.total_amount, o.order_date
         FROM orders o
         JOIN users u ON o.user_id = u.id
         WHERE o.user_id = ?
-        ORDER BY o.date_of_order DESC";
+        ORDER BY o.order_date DESC";
 
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $userId);
@@ -95,7 +95,7 @@ $userId = $loggedIn ? $_SESSION['user_id'] : null;
               <tbody>
                 <?php while ($row = $result->fetch_assoc()): ?>
                   <tr>
-                    <td><?= htmlspecialchars($row['id']) ?></td>
+                    <td><?= htmlspecialchars($row['order_id']) ?></td>
                     <td><?= htmlspecialchars($row['username']) ?></td>
                     <td>
                       <?php
@@ -111,7 +111,7 @@ $userId = $loggedIn ? $_SESSION['user_id'] : null;
                     </td>
                     <td><?= htmlspecialchars($row['total_items']) ?></td>
                     <td>₹<?= htmlspecialchars($row['total_amount']) ?></td>
-                    <td><?= htmlspecialchars($row['date_of_order']) ?></td>
+                    <td><?= htmlspecialchars($row['order_date']) ?></td>
                   </tr>
                 <?php endwhile; ?>
               </tbody>

@@ -78,10 +78,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                     <?php
                                     include 'config.php';
                                     // normal orders: ensure we select order id (o.id) as order_id so echo is correct
-                                    $query = "SELECT o.id AS order_id, u.username, o.order_details, o.total_items, o.total_amount, o.date_of_order 
+                                    $query = "SELECT o.order_id AS order_id, u.username, o.order_details, o.total_items, o.total_amount, o.order_date 
           FROM orders o 
           JOIN users u ON u.id = o.user_id
-          ORDER BY o.date_of_order DESC";
+          ORDER BY o.order_date DESC";
                                     $result = mysqli_query($conn, $query);
                                     if ($result && mysqli_num_rows($result) > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -110,7 +110,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                             echo "</td>";
                                             echo "<td>" . htmlspecialchars($row['total_items']) . "</td>";
                                             echo "<td>₹" . htmlspecialchars(number_format((float)$row['total_amount'], 2)) . "</td>";
-                                            echo "<td>" . htmlspecialchars($row['date_of_order']) . "</td>";
+                                            echo "<td>" . htmlspecialchars($row['order_date']) . "</td>";
                                             echo "</tr>";
                                         }
                                     } else {
